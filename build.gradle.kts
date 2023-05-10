@@ -30,7 +30,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	// swagger
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.10")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
 	// database
 	implementation("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
