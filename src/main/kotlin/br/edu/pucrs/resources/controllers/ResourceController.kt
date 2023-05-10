@@ -1,7 +1,7 @@
-package br.edu.pucrs.group4.backendg4.controllers
+package br.edu.pucrs.resources.controllers
 
-import br.edu.pucrs.group4.backendg4.entities.Resource
-import br.edu.pucrs.group4.backendg4.services.ResourceService
+import br.edu.pucrs.resources.entities.Resource
+import br.edu.pucrs.resources.services.ResourceService
 import org.springframework.web.bind.annotation.*
 import java.util.*
 

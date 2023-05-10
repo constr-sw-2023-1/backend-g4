@@ -1,4 +1,4 @@
-package br.edu.pucrs.group4.backendg4.exceptions
+package br.edu.pucrs.resources.exceptions
 
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ResponseStatus

@@ -1,7 +1,7 @@
-package br.edu.pucrs.group4.backendg4.controllers
+package br.edu.pucrs.resources.controllers
 
-import br.edu.pucrs.group4.backendg4.entities.Type
-import br.edu.pucrs.group4.backendg4.services.TypeService
+import br.edu.pucrs.resources.entities.Type
+import br.edu.pucrs.resources.services.TypeService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

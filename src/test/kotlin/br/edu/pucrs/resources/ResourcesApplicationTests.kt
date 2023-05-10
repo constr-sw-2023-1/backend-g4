@@ -1,10 +1,10 @@
-package br.edu.pucrs.group4.backendg4
+package br.edu.pucrs.resources
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class BackendG4ApplicationTests {
+class ResourcesApplicationTests {
 
 	@Test
 	fun contextLoads() {

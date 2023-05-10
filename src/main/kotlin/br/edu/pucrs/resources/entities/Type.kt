@@ -1,4 +1,4 @@
-package br.edu.pucrs.group4.backendg4.entities
+package br.edu.pucrs.resources.entities
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue

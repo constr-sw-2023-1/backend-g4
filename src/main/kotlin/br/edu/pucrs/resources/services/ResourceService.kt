@@ -1,8 +1,8 @@
-package br.edu.pucrs.group4.backendg4.services
+package br.edu.pucrs.resources.services
 
-import br.edu.pucrs.group4.backendg4.entities.Resource
-import br.edu.pucrs.group4.backendg4.exceptions.ResourceNotFoundException
-import br.edu.pucrs.group4.backendg4.repositories.ResourceRepository
+import br.edu.pucrs.resources.entities.Resource
+import br.edu.pucrs.resources.exceptions.ResourceNotFoundException
+import br.edu.pucrs.resources.repositories.ResourceRepository
 import org.springframework.stereotype.Service
 import java.util.*
 

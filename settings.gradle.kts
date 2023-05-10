@@ -1,1 +1,1 @@
-rootProject.name = "backend-g4"
+rootProject.name = "resources"
