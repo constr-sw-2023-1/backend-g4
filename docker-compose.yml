@@ -1,0 +1,44 @@
+version: '3.4'
+networks:
+  group4:
+volumes:
+  group4-keycloak-data:
+    external: true
+services:
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:21.0.2
+    command: start-dev --import-realm
+    ports:
+      - "8090:8080"
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=a12345678
+      - KEYCLOAK_FRONTEND_URL=http://localhost:8090
+    volumes:
+      - group4-keycloak-data:/opt/jboss/keycloak/standalone/data
+      - ./src/main/resources/keycloak_data:/opt/keycloak/data/import
+    networks:
+      - group4
+    
+  oauth-service:
+    depends_on:
+      - keycloak
+    container_name: oauth-service
+    build: .
+    image: ghcr.io/constr-sw-2023-1/oauth-g4:latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    ports:
+      - "8080:8080"
+    environment:
+      - KEYCLOAK_CLIENT_ID=oauth
+      - KEYCLOAK_CLIENT_SECRET=04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
+      - KEYCLOAK_REALM=construcao-sw
+      - KEYCLOAK_REALM_URL=http://keycloak:8080
+    networks:
+      - group4

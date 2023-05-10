@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: resources-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/resources
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+
+server:
+  port: 8084
+
+springdoc:
+  show-actuator: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [health, info, env, metrics]
