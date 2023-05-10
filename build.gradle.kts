@@ -23,13 +23,21 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	compileOnly("org.projectlombok:lombok")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	// database
+	implementation("org.postgresql:postgresql")
 	runtimeOnly("com.h2database:h2")
-	annotationProcessor("org.projectlombok:lombok")
+	// cache
+	implementation("org.springframework.data:spring-data-redis:3.0.5")
+	// logging
+	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+	// utils
+	implementation("org.apache.commons:commons-lang3:3.12.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
