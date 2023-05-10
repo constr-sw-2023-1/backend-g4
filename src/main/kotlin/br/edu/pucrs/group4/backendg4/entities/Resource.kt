@@ -1,15 +1,15 @@
 package br.edu.pucrs.group4.backendg4.entities
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
+import jakarta.persistence.*
 import java.util.*
 
 @Entity
-data class Resource(
+class Resource(
         @Id @GeneratedValue
-        var id: UUID? = null,
-        var tipo: String,
-        var descricao: String,
-        var fabricante: String
+        var id: UUID,
+        var descricao: String? = null,
+        var fabricante: String? = null,
+        @ManyToOne
+        var tipo: Type? = null,
+
 )
