@@ -7,8 +7,9 @@ import java.util.*
 @Document(collection = "resources")
 class Resource(
     @Id
-    var id: UUID,
-    var descricao: String? = null,
-    var fabricante: String? = null,
-    var tipo: Type? = null,
+    val id: UUID = UUID.randomUUID(),
+    var description: String,
+    var type: Type,
+    var manufacturer: Manufacturer,
+    var configuration: List<Component> = emptyList()
 )

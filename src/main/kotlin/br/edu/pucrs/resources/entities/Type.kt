@@ -6,7 +6,6 @@ import java.util.*
 
 @Document(collection = "types")
 class Type(
-        @Id
-        var id: UUID? = null,
-        var nome: String? = null
+        val id: UUID = UUID.randomUUID(),
+        var name: String
 )

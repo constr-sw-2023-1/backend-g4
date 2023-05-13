@@ -11,22 +11,21 @@ import java.util.*
 @RequestMapping("/api/types")
 class TypeController(private val typeService: TypeService) {
 
+    @PostMapping
+    fun save(@RequestBody type: Type): ResponseEntity<Type> {
+        val createdType = typeService.save(type)
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdType)
+    }
+
     @GetMapping
-    fun getAllTypes(): ResponseEntity<List<Type>> {
-        val types = typeService.getAllTypes()
+    fun findAll(): ResponseEntity<List<Type>> {
+        val types = typeService.findAll()
         return ResponseEntity.ok(types)
     }
 
     @GetMapping("/{id}")
-    fun getTypeById(@PathVariable id: UUID): ResponseEntity<Type> {
-        val type = typeService.getTypeById(id)
+    fun findById(@PathVariable id: UUID): ResponseEntity<Type> {
+        val type = typeService.findById(id)
         return ResponseEntity.ok(type)
     }
-
-    @PostMapping
-    fun createType(@RequestBody type: Type): ResponseEntity<Type> {
-        val createdType = typeService.createType(type)
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdType)
-    }
-
 }
