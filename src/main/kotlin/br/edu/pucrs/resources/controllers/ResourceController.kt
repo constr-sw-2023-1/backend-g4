@@ -2,31 +2,37 @@ package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.entities.Resource
 import br.edu.pucrs.resources.services.ResourceService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-@RequestMapping("/resources")
+@RequestMapping("/api/resources")
 class ResourceController(private val resourceService: ResourceService) {
 
     @PostMapping
-    fun cadastrarRecurso(@RequestBody recurso: Resource): Resource {
-        return resourceService.cadastrarRecurso(recurso)
+    fun save(@RequestBody resource: Resource): ResponseEntity<Resource> {
+        val createdResource =  resourceService.save(resource)
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdResource)
     }
 
     @GetMapping
-    fun listarRecursos(): List<Resource> {
-        return resourceService.listarRecursos()
+    fun findAll(): ResponseEntity<List<Resource>> {
+        val resources = resourceService.findAll()
+        return ResponseEntity.ok(resources)
     }
 
     @GetMapping("/{id}")
-    fun buscarRecursoPorId(@PathVariable id: UUID): Resource {
-        return resourceService.buscarRecursoPorId(id)
+    fun findById(@PathVariable id: UUID): ResponseEntity<Resource> {
+        val resource = resourceService.findById(id)
+        return ResponseEntity.ok(resource)
     }
 
     @PutMapping("/{id}")
-    fun atualizarRecurso(@PathVariable id: UUID, @RequestBody recurso: Resource): Resource {
-        return resourceService.atualizarRecurso(id, recurso)
+    fun update(@PathVariable id: UUID, @RequestBody resource: Resource): ResponseEntity<Resource> {
+        val resource = resourceService.update(id, resource)
+        return ResponseEntity.ok(resource)
     }
 
 }

@@ -8,6 +8,6 @@ import java.util.*
 @Entity
 class Type(
         @Id @GeneratedValue
-        var id: UUID? = null,
-        var nome: String? = null
+        val id: UUID = UUID.randomUUID(),
+        var name: String
 )

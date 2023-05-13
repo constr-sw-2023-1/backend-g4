@@ -7,9 +7,8 @@ import java.util.*
 
 @Entity
 class Component (
-        @Id
-        @GeneratedValue
-        var id: UUID,
-        var nome: String? = null,
-        var descricao: String? = null,
+        @Id @GeneratedValue
+        val id: UUID = UUID.randomUUID(),
+        var component: String,
+        var description: String,
 )

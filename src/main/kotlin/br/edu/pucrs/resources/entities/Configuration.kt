@@ -4,9 +4,9 @@ import jakarta.persistence.*
 import java.util.*
 
 @Entity
-class Configuracao (
+class Configuration (
         @Id @GeneratedValue
-        var id: UUID,
+        val id: UUID = UUID.randomUUID(),
         @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true)
         @JoinColumn(name = "id")
         var resource: Resource

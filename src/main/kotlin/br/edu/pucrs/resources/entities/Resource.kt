@@ -6,18 +6,18 @@ import java.util.*
 @Entity
 class Resource(
         @Id @GeneratedValue
-        var id: UUID,
+        val id: UUID = UUID.randomUUID(),
 
-        var descricao: String? = null,
-
-        @ManyToOne
-        var fabricante: Fabricante? = null,
+        var description: String,
 
         @ManyToOne
-        var tipo: Type? = null,
+        var type: Type,
+
+        @ManyToOne
+        var manufacturer: Manufacturer,
 
         @ManyToMany(cascade = [CascadeType.ALL])
-        @JoinTable(name = "configuracao")
+        @JoinTable(name = "configuration")
         @JoinColumn(name = "resource_id")
-        var components: List<Component> = emptyList()
+        var configuration: List<Component> = emptyList()
 )

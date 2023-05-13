@@ -6,9 +6,8 @@ import jakarta.persistence.Id
 import java.util.*
 
 @Entity
-class Fabricante (
-        @Id
-        @GeneratedValue
-        var id: UUID,
-        var nome: String,
+class Manufacturer (
+        @Id @GeneratedValue
+        val id: UUID = UUID.randomUUID(),
+        var name: String,
 )
