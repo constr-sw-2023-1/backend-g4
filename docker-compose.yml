@@ -1,55 +1,30 @@
-version: '3.4'
-networks:
-  group4:
-volumes:
-  group4-keycloak-data:
-    external: true
+version: "3.9"
 services:
-  keycloak:
-    container_name: keycloak
-    image: quay.io/keycloak/keycloak:21.0.2
-    command: start-dev --import-realm
-    ports:
-      - "8090:8080"
-    environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=a12345678
-      - KEYCLOAK_FRONTEND_URL=http://localhost:8090
-    volumes:
-      - group4-keycloak-data:/opt/jboss/keycloak/standalone/data
-      - ./src/main/resources/keycloak_data:/opt/keycloak/data/import
-    networks:
-      - group4
-    
-  oauth-service:
-    depends_on:
-      - keycloak
-    container_name: oauth-service
-    build: .
-    image: ghcr.io/constr-sw-2023-1/oauth-g4:latest
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 20s
-    ports:
-      - "8080:8080"
-    environment:
-      - KEYCLOAK_CLIENT_ID=oauth
-      - KEYCLOAK_CLIENT_SECRET=04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
-      - KEYCLOAK_REALM=construcao-sw
-      - KEYCLOAK_REALM_URL=http://keycloak:8080
-    networks:
-      - group4
-
-  database:
-    container_name: db-resources
-    image: mongo:6.0.5
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
-    networks:
-      - group4
+      MONGO_INITDB_ROOT_USERNAME: "root"
+      MONGO_INITDB_ROOT_PASSWORD: "pass12345"
+
+  mongo-express:
+    image: mongo-express
+    container_name: "mongo-express"
+    restart: unless-stopped
+    depends_on:
+      - "mongodb"
+    ports:
+      - "8081:8081"
+    environment:
+#      ME_CONFIG_MONGODB_URL: "mongodb://mongo:27017/"
+      ME_CONFIG_MONGODB_SERVER: "mongodb"
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_OPTIONS_EDITORTHEME: "dracula"
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+      ME_CONFIG_MONGODB_ADMINUSERNAME: "root"
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "pass12345"
+      ME_CONFIG_BASICAUTH_USERNAME: "admin"
+      ME_CONFIG_BASICAUTH_PASSWORD: "admin"
