@@ -1,13 +1,12 @@
 package br.edu.pucrs.resources.entities
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
-@Entity
+@Document(collection = "types")
 class Type(
-        @Id @GeneratedValue
+        @Id
         var id: UUID? = null,
         var nome: String? = null
 )
