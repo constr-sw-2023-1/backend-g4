@@ -1,6 +1,6 @@
 package br.edu.pucrs.resources.controllers
 
-import br.edu.pucrs.resources.entities.Manufacturer
+import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.services.ManufacturerService
 import org.springframework.web.bind.annotation.*
 import java.util.*

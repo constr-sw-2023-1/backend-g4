@@ -1,6 +1,6 @@
 package br.edu.pucrs.resources.services
 
-import br.edu.pucrs.resources.entities.Manufacturer
+import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.exceptions.ResourceNotFoundException
 import br.edu.pucrs.resources.repositories.ManufacturerRepository
 import org.springframework.stereotype.Service
