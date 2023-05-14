@@ -42,3 +42,14 @@ services:
       - KEYCLOAK_REALM_URL=http://keycloak:8080
     networks:
       - group4
+
+  database:
+    container_name: db-resources
+    image: mongo:6.0.5
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    networks:
+      - group4

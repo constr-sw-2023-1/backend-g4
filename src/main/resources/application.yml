@@ -1,16 +1,15 @@
 spring:
   application:
     name: resources-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/resources
-    username: postgres
-    password: postgres
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: validate
-
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: resources
+      username: root
+      password: root
+      authentication-database: admin
+      uuid-representation: standard
 
 server:
   port: 8084
