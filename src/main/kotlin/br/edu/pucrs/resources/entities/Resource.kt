@@ -1,15 +1,14 @@
 package br.edu.pucrs.resources.entities
 
-import jakarta.persistence.*
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
 
-@Entity
+@Document(collection = "resources")
 class Resource(
-    @Id @GeneratedValue
-        var id: UUID,
+    @Id
+    var id: UUID,
     var descricao: String? = null,
     var fabricante: String? = null,
-    @ManyToOne
-        var tipo: Type? = null,
-
-    )
+    var tipo: Type? = null,
+)

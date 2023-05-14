@@ -23,13 +23,21 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	compileOnly("org.projectlombok:lombok")
-	runtimeOnly("com.h2database:h2")
-	annotationProcessor("org.projectlombok:lombok")
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	// swagger
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+	// database
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+	// cache
+	implementation("org.springframework.data:spring-data-redis:3.0.5")
+	// logging
+	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+	// utils
+	implementation("org.apache.commons:commons-lang3:3.12.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
@@ -42,4 +50,5 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	System.setProperty("spring.profiles.active", "test")
 }
