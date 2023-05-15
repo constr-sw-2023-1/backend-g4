@@ -6,9 +6,7 @@ import br.edu.pucrs.resources.dto.response.TypeResponseDTO
 class TypeMapper {
     companion object {
         fun toResponse(type: Type):TypeResponseDTO {
-            var typeResponseDTO = TypeResponseDTO()
-            typeResponseDTO._id = type._id
-            typeResponseDTO.name = type.name
+            var typeResponseDTO = TypeResponseDTO(type._id!!, type.name!!)
 
             return typeResponseDTO
         }

@@ -1,0 +1,8 @@
+spring:
+    data:
+        mongodb:
+            database: resources-database
+            port: 27017
+            host: mongodb
+            username: ${MONGO_USERNAME}
+            password: ${MONGO_PASSWORD}

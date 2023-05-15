@@ -2,8 +2,8 @@ package br.edu.pucrs.resources.dto.response
 
 import java.util.*
 
-class ConfigurationResponseDTO {
-    var _id: UUID? = null
-    var component: String? = null
-    var description: String? = null
-}
+data class ConfigurationResponseDTO (
+        var id: UUID,
+        var component: String,
+        var description: String,
+)

@@ -10,17 +10,14 @@ import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
 
 class ResourceMapper {
     companion object {
-
         fun toResponse(resource: Resource): ResourceResponseDTO {
-            var resourceResponseDTO = ResourceResponseDTO()
-
-            resourceResponseDTO._id = resource._id
-            resourceResponseDTO.description = resource.description
-            resourceResponseDTO.type = TypeMapper.toResponse(resource.type!!)
-            resourceResponseDTO.manufacturer = ManufacturerMapper.toResponse(resource.manufacturer!!)
-            resourceResponseDTO.configurations = resource.configuration.map {
-                ConfigurationMapper.toResponse(it)
-            } as ArrayList<ConfigurationResponseDTO>
+            var resourceResponseDTO = ResourceResponseDTO(
+                    resource._id!!, resource.description!!,
+                    TypeMapper.toResponse(resource.type!!),
+                    ManufacturerMapper.toResponse(resource.manufacturer!!),
+                    resource.configuration.map {
+                        ConfigurationMapper.toResponse(it)
+                    } as ArrayList<ConfigurationResponseDTO>)
 
             return resourceResponseDTO
         }

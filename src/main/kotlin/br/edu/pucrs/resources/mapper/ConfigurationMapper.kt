@@ -6,11 +6,7 @@ import br.edu.pucrs.resources.dto.response.ConfigurationResponseDTO
 class ConfigurationMapper {
     companion object {
         fun toResponse(configuration: Configuration): ConfigurationResponseDTO {
-            var configurationResponseDTO = ConfigurationResponseDTO()
-
-            configurationResponseDTO._id = configuration._id
-            configurationResponseDTO.component = configuration.component
-            configurationResponseDTO.description = configuration.description
+            var configurationResponseDTO = ConfigurationResponseDTO(configuration._id!!, configuration.component!!, configuration.description!!)
 
             return configurationResponseDTO
         }

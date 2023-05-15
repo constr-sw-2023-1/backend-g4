@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      database: resources-database
+      port: 27017
+      host: localhost
+      username: root
+      password: pass12345
+      authentication-database: admin
+
+server:
+  port: 8084
+  servlet:
+    context-path: /api

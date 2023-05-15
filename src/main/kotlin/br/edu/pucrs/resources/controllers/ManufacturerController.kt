@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-@RequestMapping("/api/manufacturer")
+@RequestMapping("/manufacturers")
 class ManufacturerController(private val manufacturerService: ManufacturerService) {
 
     @PostMapping
