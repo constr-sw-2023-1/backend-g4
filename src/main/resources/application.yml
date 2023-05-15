@@ -1,8 +1,24 @@
 spring:
+    application:
+        name: resources-service
     data:
         mongodb:
-            database: resources-database
+            host: localhost
             port: 27017
-            host: mongodb
-            username: ${MONGO_USERNAME}
-            password: ${MONGO_PASSWORD}
+            database: resources
+            username: root
+            password: root
+            authentication-database: admin
+            uuid-representation: standard
+
+server:
+    port: 8084
+
+springdoc:
+    show-actuator: true
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: [health, info, env, metrics]
