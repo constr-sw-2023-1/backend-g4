@@ -1,4 +1,9 @@
 version: "3.9"
+networks:
+  group4:
+volumes:
+  group4-mongodb-data:
+    external: true
 services:
   mongodb:
     image: mongo
@@ -10,4 +15,31 @@ services:
       MONGO_INITDB_ROOT_USERNAME: "root"
       MONGO_INITDB_ROOT_PASSWORD: "pass12345"
     volumes:
-     - ~/mongo/data:/data/db
+      - ~/mongo/data:/data/db
+    networks:
+      - group4
+
+  resources-service:
+    depends_on:
+      - mongodb
+    container_name: resources-service
+    build: .
+    image: ghcr.io/constr-sw-2023-1/backend-g4:latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+    ports:
+      - "8084:8084"
+    environment:
+      - MONGODB_HOST=localhost
+      - MONGODB_PORT=27017
+      - MONGODB_DATABASE=resources
+      - MONGODB_USERNAME=root
+      - MONGODB_PASSWORD=root
+      - MONGODB_AUTHENTICATION_DATABASE=admin
+      - MONGODB_UUID_REPRESENTATION=standard
+    networks:
+      - group4
