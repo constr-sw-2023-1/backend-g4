@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: resources
+  name: resources
+  namespace: cs-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: resources
+  template:
+    metadata:
+      labels:
+        io.kompose.service: resources
+    spec:
+      containers:
+        - env:
+            - name: MONGODB_HOST
+              value: localhost
+            - name: MONGODB_PORT
+              value: 27017
+            - name: MONGODB_DATABASE
+              value: resources
+            - name: MONGODB_USERNAME
+              value: root
+            - name: MONGODB_PASSWORD
+              value: root
+            - name: MONGODB_AUTHENTICATION_DATABASE
+              value: admin
+            - name: MONGODB_UUID_REPRESENTATION
+              value: standard
+
+          image: ghcr.io/constr-sw-2023-1/backend-g4:latest
+          name: resources
+          ports:
+            - containerPort: 8084
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ghcr-secret
+
