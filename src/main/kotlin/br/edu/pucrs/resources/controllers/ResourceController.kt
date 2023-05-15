@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-@RequestMapping("/resources")
+@RequestMapping("/api/resources")
 class ResourceController(private val resourceService: ResourceService) {
 
     @PostMapping

@@ -35,6 +35,10 @@ class ResourceService(private val resourceRepository: ResourceRepository,
 
     fun update(novoRecurso: Resource): Resource {
         findById(novoRecurso._id!!)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 68c771612413638cd237879cfa499dda6513ef40
         return resourceRepository.save(novoRecurso)
     }
 }

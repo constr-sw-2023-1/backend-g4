@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
-    @RequestMapping("/configurations")
-    class ConfigurationController(private val configurationService: ConfigurationService) {
-        @PostMapping
-        fun save(@RequestBody configuration: Configuration): Configuration {
-            return configurationService.save(configuration)
-        }
+@RequestMapping("/configurations")
+class ConfigurationController(private val configurationService: ConfigurationService) {
+    @PostMapping
+    fun save(@RequestBody configuration: Configuration): Configuration {
+        return configurationService.save(configuration)
+    }
 
-        @GetMapping
+    @GetMapping
     fun findAll(): List<Configuration> {
         return configurationService.findAll()
     }

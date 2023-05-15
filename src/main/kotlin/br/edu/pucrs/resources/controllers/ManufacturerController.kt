@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @RestController
+<<<<<<< HEAD
 @RequestMapping("/manufacturers")
+=======
+@RequestMapping("/api/manufacturer")
+>>>>>>> 68c771612413638cd237879cfa499dda6513ef40
 class ManufacturerController(private val manufacturerService: ManufacturerService) {
 
     @PostMapping
