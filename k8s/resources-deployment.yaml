@@ -18,7 +18,7 @@ spec:
       containers:
         - env:
             - name: MONGODB_HOST
-              value: localhost
+              value: ${MONGODB_SERVICE_IP}
             - name: MONGODB_PORT
               value: 27017
             - name: MONGODB_DATABASE
