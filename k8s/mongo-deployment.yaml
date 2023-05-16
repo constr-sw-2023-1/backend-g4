@@ -18,20 +18,23 @@ spec:
         io.kompose.service: mongodb
     spec:
       containers:
-        - env:
-            - name: MONGO_INITDB_ROOT_USERNAME
-              value: root
-            - name: MONGO_INITDB_ROOT_PASSWORD
-              value: pass12345
+        - name: mongodb
           image: mongo:latest
-          name: mongodb
+          args:
+            - --dbpath
+            - /data/db
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "pass12345"
           ports:
-          - containerPort: 27017
+            - containerPort: 27017
           volumeMounts:
-          - mountPath: /data/db
-            name: mongo-data
-          volumes:
-          - name: mongo-data
-            persistentVolumeClaim:
-              claimName: mongo-pvc
+            - name: mongo-data-dir
+              mountPath: /data/db
+      volumes:
+        - name: mongo-data-dir
+          persistentVolumeClaim:
+            claimName: mongo-pvc
       restartPolicy: Always

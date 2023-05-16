@@ -2,8 +2,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mongo-pvc
+  namespace: cs-ns
 spec:
-  storageClassName: "oci-bv"
+  storageClassName: "oci"
   accessModes:
     - ReadWriteOnce
   resources:
