@@ -7,14 +7,14 @@
 
 ### :cloud: Cloud Endpoints
 The following URLs are hosted on OCI, the following links can redirect you to it.
-- [Resources API]().
-- [MongoDB]().
+- [Resources API](http://168.75.107.143:8084/swagger-ui/index.html#/).
+- [MongoDB](http://168.75.107.143:27017/).
 
 ### :whale2: Docker Image
-- The docker [Resources image]() can be pulled from the GHCR.
+- The docker [Resources image](https://github.com/constr-sw-2023-1/backend-g4/pkgs/container/backend-g4) can be pulled from the GHCR.
 
 ### :open_book: API Docs
-You can acess [Swagger]() to check the API docs.
+You can acess [Swagger](http://localhost:8084/swagger-ui/index.html#/) to check the API docs.
 
 ## :hammer_and_wrench: Building the project
 Use the following command to build the project:
