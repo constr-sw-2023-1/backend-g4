@@ -18,19 +18,19 @@ spec:
       containers:
         - env:
             - name: MONGODB_HOST
-              value: ${MONGODB_SERVICE_IP}
+              value: "${MONGODB_SERVICE_IP}"
             - name: MONGODB_PORT
-              value: 27017
+              value: "27017"
             - name: MONGODB_DATABASE
-              value: resources
+              value: "resources"
             - name: MONGODB_USERNAME
-              value: root
+              value: "root"
             - name: MONGODB_PASSWORD
-              value: root
+              value: "root"
             - name: MONGODB_AUTHENTICATION_DATABASE
-              value: admin
+              value: "admin"
             - name: MONGODB_UUID_REPRESENTATION
-              value: standard
+              value: "standard"
           image: ghcr.io/constr-sw-2023-1/backend-g4:latest
           name: resources
           ports:
