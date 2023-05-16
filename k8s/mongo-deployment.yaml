@@ -35,4 +35,4 @@ spec:
       - name: mongo-data-dir
         persistentVolumeClaim:
           claimName: mongodb-pvc
-      restartPolicy: OnFailure
+      restartPolicy: Always
