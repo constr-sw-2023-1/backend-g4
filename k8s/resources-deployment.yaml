@@ -31,7 +31,6 @@ spec:
               value: admin
             - name: MONGODB_UUID_REPRESENTATION
               value: standard
-
           image: ghcr.io/constr-sw-2023-1/backend-g4:latest
           name: resources
           ports:
@@ -39,4 +38,3 @@ spec:
       restartPolicy: Always
       imagePullSecrets:
         - name: ghcr-secret
-
