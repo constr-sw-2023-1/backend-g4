@@ -4,9 +4,9 @@ metadata:
   name: mongo-pvc
   namespace: cs-ns
 spec:
-  storageClassName: "oci"
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 50Gi
+  storageClassName: oci
