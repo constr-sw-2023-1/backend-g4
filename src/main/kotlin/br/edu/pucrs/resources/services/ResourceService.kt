@@ -37,4 +37,9 @@ class ResourceService(private val resourceRepository: ResourceRepository,
         findById(novoRecurso._id!!)
         return resourceRepository.save(novoRecurso)
     }
+
+    fun deleteById(id: UUID) {
+        findById(id)
+        return resourceRepository.deleteById(id)
+    }
 }

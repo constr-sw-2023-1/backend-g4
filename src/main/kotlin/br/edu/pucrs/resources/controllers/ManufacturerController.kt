@@ -29,4 +29,9 @@ class ManufacturerController(private val manufacturerService: ManufacturerServic
         return manufacturerService.update(id, manufacturer)
     }
 
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable id: UUID) {
+        return manufacturerService.deleteById(id)
+    }
+
 }

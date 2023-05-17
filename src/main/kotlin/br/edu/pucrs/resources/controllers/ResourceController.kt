@@ -37,4 +37,9 @@ class ResourceController(private val resourceService: ResourceService) {
         return ResponseEntity.ok(resource)
     }
 
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable id: UUID) {
+        return resourceService.deleteById(id)
+    }
+
 }

@@ -28,4 +28,10 @@ class TypeController(private val typeService: TypeService) {
         val type = typeService.findById(id)
         return ResponseEntity.ok(type)
     }
+
+    @GetMapping("/findByName/{name}")
+    fun findByName(@PathVariable name: String): Type {
+        return typeService.findByName(name)
+    }
+
 }

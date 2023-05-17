@@ -23,9 +23,12 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
 
     fun update(id: UUID, newManufacturer: Manufacturer): Manufacturer {
         val manufacturerAlreadyExist = findById(id)
-
-        newManufacturer.name = newManufacturer.name
-
+        //manufacturerAlreadyExist.name = newManufacturer.name
         return manufacturerRepository.save(newManufacturer)
+    }
+
+    fun deleteById(id: UUID) {
+        findById(id)
+        return manufacturerRepository.deleteById(id)
     }
 }

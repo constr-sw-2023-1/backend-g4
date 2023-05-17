@@ -2,6 +2,7 @@ package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Configuration
 import br.edu.pucrs.resources.services.ConfigurationService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -22,4 +23,18 @@ class ConfigurationController(private val configurationService: ConfigurationSer
     fun findById(@PathVariable id: UUID): Configuration {
         return configurationService.findById(id)
     }
+
+    @PutMapping("/{id}")
+    fun updateConfigurations(
+            @PathVariable id: UUID,
+            @RequestBody updatedConfigurations: Configuration
+    ): ResponseEntity<Configuration> {
+        return configurationService.updateConfigurations(id, updatedConfigurations)
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable id: UUID) {
+        return configurationService.deleteById(id)
+    }
+
 }
