@@ -34,4 +34,15 @@ class TypeController(private val typeService: TypeService) {
         return typeService.findByName(name)
     }
 
+    @PutMapping
+    fun update(@RequestBody type: Type): ResponseEntity<Type> {
+        val resource = typeService.update(type)
+        return ResponseEntity.ok(resource)
+    }
+
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable id: UUID) {
+        return typeService.deleteById(id)
+    }
+
 }

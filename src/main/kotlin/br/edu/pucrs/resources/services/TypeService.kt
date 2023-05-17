@@ -25,4 +25,14 @@ class TypeService(private val typeRepository: TypeRepository) {
     fun findByName(name: String): Type {
         return typeRepository.findByName(name)
     }
+
+    fun update(newType: Type): Type {
+        findById(newType._id!!)
+        return typeRepository.save(newType)
+    }
+
+    fun deleteById(id: UUID) {
+        findById(id)
+        return typeRepository.deleteById(id)
+    }
 }

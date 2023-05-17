@@ -24,9 +24,9 @@ class ManufacturerController(private val manufacturerService: ManufacturerServic
         return manufacturerService.findById(id)
     }
 
-    @PutMapping("/{id}")
-    fun update(@PathVariable id: UUID, @RequestBody manufacturer: Manufacturer): Manufacturer {
-        return manufacturerService.update(id, manufacturer)
+    @PutMapping
+    fun update(@RequestBody manufacturer: Manufacturer): Manufacturer {
+        return manufacturerService.update(manufacturer)
     }
 
     @DeleteMapping("/{id}")

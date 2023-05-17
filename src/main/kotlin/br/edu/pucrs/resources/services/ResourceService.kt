@@ -33,9 +33,9 @@ class ResourceService(private val resourceRepository: ResourceRepository,
         return resourceRepository.findById(id).orElseThrow { ResourceNotFoundException("Recurso não encontrado") }
     }
 
-    fun update(novoRecurso: Resource): Resource {
-        findById(novoRecurso._id!!)
-        return resourceRepository.save(novoRecurso)
+    fun update(newResource: Resource): Resource {
+        findById(newResource._id!!)
+        return resourceRepository.save(newResource)
     }
 
     fun deleteById(id: UUID) {

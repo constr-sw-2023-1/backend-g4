@@ -21,9 +21,8 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
         return manufacturerRepository.findById(id).orElseThrow { ResourceNotFoundException("Manufacturer not found") }
     }
 
-    fun update(id: UUID, newManufacturer: Manufacturer): Manufacturer {
-        val manufacturerAlreadyExist = findById(id)
-        //manufacturerAlreadyExist.name = newManufacturer.name
+    fun update(newManufacturer: Manufacturer): Manufacturer {
+        findById(newManufacturer._id!!)
         return manufacturerRepository.save(newManufacturer)
     }
 

@@ -24,12 +24,11 @@ class ConfigurationController(private val configurationService: ConfigurationSer
         return configurationService.findById(id)
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     fun updateConfigurations(
-            @PathVariable id: UUID,
             @RequestBody updatedConfigurations: Configuration
     ): ResponseEntity<Configuration> {
-        return configurationService.updateConfigurations(id, updatedConfigurations)
+        return configurationService.updateConfigurations(updatedConfigurations)
     }
 
     @DeleteMapping("/{id}")

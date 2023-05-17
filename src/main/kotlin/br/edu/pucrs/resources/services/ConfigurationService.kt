@@ -31,12 +31,9 @@ class ConfigurationService(private val configurationRepository: ConfigurationRep
         } as ArrayList<Configuration>
     }
 
-    fun updateConfigurations(id: UUID, newConfig: Configuration): ResponseEntity<Configuration> {
-        var oldConfig = findById(id)
-        //oldConfig.component = newConfig.component
-        //oldConfig.description = newConfig.description
-        configurationRepository.save(oldConfig)
-        return ResponseEntity.status(HttpStatus.CREATED).body(oldConfig)
+    fun updateConfigurations(newConfig: Configuration): ResponseEntity<Configuration> {
+        findById(newConfig._id!!)
+        return ResponseEntity.status(HttpStatus.CREATED).body(configurationRepository.save(newConfig))
     }
 
     fun deleteById(id: UUID) {
