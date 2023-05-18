@@ -22,7 +22,7 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
     }
 
     fun update(newManufacturer: Manufacturer): Manufacturer {
-        findById(newManufacturer._id!!)
+        findById(newManufacturer.id!!)
         return manufacturerRepository.save(newManufacturer)
     }
 

@@ -27,7 +27,7 @@ class TypeService(private val typeRepository: TypeRepository) {
     }
 
     fun update(newType: Type): Type {
-        findById(newType._id!!)
+        findById(newType.id!!)
         return typeRepository.save(newType)
     }
 

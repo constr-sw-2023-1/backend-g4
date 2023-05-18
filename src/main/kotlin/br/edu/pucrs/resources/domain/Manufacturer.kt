@@ -7,6 +7,6 @@ import java.util.*
 @Document("manufacturers")
 class Manufacturer {
         @Id
-        var _id: UUID? = UUID.randomUUID()
+        var id: UUID? = UUID.randomUUID()
         var name: String? = null
 }

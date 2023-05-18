@@ -12,7 +12,7 @@ class ResourceMapper {
     companion object {
         fun toResponse(resource: Resource): ResourceResponseDTO {
             return ResourceResponseDTO(
-                    resource._id!!, resource.description!!,
+                    resource.id!!, resource.description!!,
                     TypeMapper.toResponse(resource.type!!),
                     ManufacturerMapper.toResponse(resource.manufacturer!!),
                     resource.configuration.map {

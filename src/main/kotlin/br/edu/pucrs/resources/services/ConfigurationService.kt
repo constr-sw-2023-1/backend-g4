@@ -32,7 +32,7 @@ class ConfigurationService(private val configurationRepository: ConfigurationRep
     }
 
     fun updateConfigurations(newConfig: Configuration): ResponseEntity<Configuration> {
-        findById(newConfig._id!!)
+        findById(newConfig.id!!)
         return ResponseEntity.status(HttpStatus.CREATED).body(configurationRepository.save(newConfig))
     }
 

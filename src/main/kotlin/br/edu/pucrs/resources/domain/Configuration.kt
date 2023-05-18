@@ -7,7 +7,7 @@ import java.util.*
 @Document("configurations")
 class Configuration {
         @Id
-        var _id: UUID? = UUID.randomUUID()
+        var id: UUID? = UUID.randomUUID()
         var component: String? = null
         var description: String? = null
 }
