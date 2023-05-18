@@ -8,6 +8,6 @@ import java.util.*
 @Document("types")
 class Type{
         @Id
-        var _id: UUID? = UUID.randomUUID()
+        var id: UUID? = UUID.randomUUID()
         var name: String? = null
 }

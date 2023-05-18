@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface TypeRepository : MongoRepository<Type, UUID>
+interface TypeRepository : MongoRepository<Type, UUID> {
+    fun findByName(name: String): Type
+}

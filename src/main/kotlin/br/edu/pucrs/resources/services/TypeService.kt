@@ -9,6 +9,10 @@ import java.util.*
 @Service
 class TypeService(private val typeRepository: TypeRepository) {
 
+    fun save(type: Type): Type {
+        return typeRepository.save(type)
+    }
+
     fun findAll(): List<Type> {
         return typeRepository.findAll()
     }
@@ -18,7 +22,17 @@ class TypeService(private val typeRepository: TypeRepository) {
                 .orElseThrow { ResourceNotFoundException("Type not found with id $id") }
     }
 
-    fun save(type: Type): Type {
-        return typeRepository.save(type)
+    fun findByName(name: String): Type {
+        return typeRepository.findByName(name)
+    }
+
+    fun update(newType: Type): Type {
+        findById(newType.id!!)
+        return typeRepository.save(newType)
+    }
+
+    fun deleteById(id: UUID) {
+        findById(id)
+        return typeRepository.deleteById(id)
     }
 }
