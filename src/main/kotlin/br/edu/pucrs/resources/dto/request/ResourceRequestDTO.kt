@@ -6,5 +6,5 @@ data class ResourceRequestDTO (
         var description: String,
         var typeUUID: UUID,
         var manufacturerUUID: UUID,
-        var configurationsUUID: ArrayList<UUID> = arrayListOf()
+        var configurations: ArrayList<ConfigurationRequestDTO> = arrayListOf()
 )

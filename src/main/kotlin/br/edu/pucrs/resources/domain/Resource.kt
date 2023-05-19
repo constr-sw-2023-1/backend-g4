@@ -11,5 +11,5 @@ class Resource{
         var description: String? = null
         var type: Type? = null
         var manufacturer: Manufacturer? = null
-        var configuration: ArrayList<Configuration> = arrayListOf()
+        var configurations: ArrayList<Configuration> = arrayListOf()
 }

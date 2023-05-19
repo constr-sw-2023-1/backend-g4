@@ -12,7 +12,6 @@ import java.util.*
 @RequestMapping("/manufacturers")
 class ManufacturerController(private val manufacturerService: ManufacturerService) {
 
-
     @Operation(summary = "Create a new manufacturer")
     @PostMapping
     fun save(@RequestBody manufacturer: Manufacturer): Manufacturer {

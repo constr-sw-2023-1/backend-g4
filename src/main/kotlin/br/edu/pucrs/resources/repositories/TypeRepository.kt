@@ -7,5 +7,9 @@ import java.util.*
 
 @Repository
 interface TypeRepository : MongoRepository<Type, UUID> {
-    fun findByName(name: String): Type
+
+    fun findByName(name: String): List<Type>
+
+    fun findByNameLike(name: String): List<Type>
+
 }

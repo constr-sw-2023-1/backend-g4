@@ -22,8 +22,12 @@ class TypeService(private val typeRepository: TypeRepository) {
                 .orElseThrow { ResourceNotFoundException("Type not found with id $id") }
     }
 
-    fun findByName(name: String): Type {
+    fun findByName(name: String): List<Type> {
         return typeRepository.findByName(name)
+    }
+
+    fun findByNameLike(name: String): List<Type> {
+        return typeRepository.findByNameLike(name)
     }
 
     fun update(newType: Type): Type {
@@ -35,4 +39,10 @@ class TypeService(private val typeRepository: TypeRepository) {
         findById(id)
         return typeRepository.deleteById(id)
     }
+
+    fun updatePatch(newType: Type): Type {
+        findById(newType.id!!)
+        return typeRepository.save(newType)
+    }
+
 }

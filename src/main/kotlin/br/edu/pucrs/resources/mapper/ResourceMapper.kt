@@ -15,7 +15,7 @@ class ResourceMapper {
                     resource.id!!, resource.description!!,
                     TypeMapper.toResponse(resource.type!!),
                     ManufacturerMapper.toResponse(resource.manufacturer!!),
-                    resource.configuration.map {
+                    resource.configurations.map {
                             ConfigurationMapper.toResponse(it)
                         } as ArrayList<ConfigurationResponseDTO>)
         }
@@ -26,7 +26,7 @@ class ResourceMapper {
             resourceEntity.description = resource.description
             resourceEntity.type = type
             resourceEntity.manufacturer = manufacturer
-            resourceEntity.configuration = configurations
+            resourceEntity.configurations = configurations
 
             return resourceEntity
         }

@@ -25,22 +25,11 @@ class ConfigurationController(private val configurationService: ConfigurationSer
         return configurationService.findAll()
     }
 
-    @Operation(summary = "Get configuration by id")
-    @GetMapping("/{id}")
-    fun findById(@PathVariable id: UUID): Configuration {
-        return configurationService.findById(id)
-    }
-
-    @Operation(summary = "Update configuration")
-    @PutMapping
-    fun updateConfigurations(@RequestBody updatedConfigurations: Configuration): ResponseEntity<Configuration> {
-        return configurationService.updateConfigurations(updatedConfigurations)
-    }
-
-    @Operation(summary = "Delete configurations")
-    @DeleteMapping("/{id}")
-    fun deleteById(@PathVariable id: UUID) {
-        return configurationService.deleteById(id)
+    @Operation(summary = "Update configurations")
+    @PatchMapping
+    fun updatePatch(@RequestBody configuration: Configuration): ResponseEntity<Configuration> {
+        val configuration = configurationService.updatePatch(configuration)
+        return ResponseEntity.ok(configuration)
     }
 
 }
