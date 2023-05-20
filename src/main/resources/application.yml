@@ -1,24 +1,43 @@
 spring:
-    application:
-        name: resources-service
-    data:
-        mongodb:
-            host: ${MONGODB_HOST:localhost}
-            port: ${MONGODB_PORT:27017}
-            database: ${MONGODB_DATABASE:resources}
-            username: ${MONGODB_USERNAME:root}
-            password: ${MONGODB_PASSWORD:root}
-            authentication-database: ${MONGODB_AUTHENTICATION_DATABASE:admin}
-            uuid-representation: ${MONGODB_UUID_REPRESENTATION:standard}
+  application:
+    name: resources-service
+  data:
+    mongodb:
+      host: ${MONGODB_HOST:localhost}
+      port: ${MONGODB_PORT:27017}
+      database: ${MONGODB_DATABASE:resources}
+      username: ${MONGODB_USERNAME:root}
+      password: ${MONGODB_PASSWORD:root}
+      authentication-database: admin
+      uuid-representation: standard
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:8090}/realms/construcao-sw
+      client:
+        registration:
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID:oauth}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET:04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z}
+            client-authentication-method: post
+            authorization-grant-type: password
+            client-name: oauth
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:8090}/realms/construcao-sw
+            user-name-attribute: preferred_username
+            jwk-set-uri: ${KEYCLOAK_REALM_URL:http://localhost:8090}/realms/construcao-sw/protocol/openid-connect/certs
 
 server:
-    port: 8084
+  port: 8084
 
 springdoc:
-    show-actuator: true
+  show-actuator: true
 
 management:
-    endpoints:
-        web:
-            exposure:
-                include: [health, info, env, metrics]
+  endpoints:
+    web:
+      exposure:
+        include: [health, info, env, metrics]
