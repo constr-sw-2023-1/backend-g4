@@ -1,7 +1,7 @@
 package br.edu.pucrs.resources.services
 
-import br.edu.pucrs.resources.domain.Configuration
 import br.edu.pucrs.resources.domain.Resource
+import br.edu.pucrs.resources.domain.VO.Configuration
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
 import br.edu.pucrs.resources.exceptions.ResourceNotFoundException

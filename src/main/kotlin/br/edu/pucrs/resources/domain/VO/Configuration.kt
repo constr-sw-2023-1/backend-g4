@@ -1,4 +1,4 @@
-package br.edu.pucrs.resources.domain
+package br.edu.pucrs.resources.domain.VO
 
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*

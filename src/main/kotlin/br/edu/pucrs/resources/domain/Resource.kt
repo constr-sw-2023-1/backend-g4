@@ -1,5 +1,6 @@
 package br.edu.pucrs.resources.domain
 
+import br.edu.pucrs.resources.domain.VO.Configuration
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*

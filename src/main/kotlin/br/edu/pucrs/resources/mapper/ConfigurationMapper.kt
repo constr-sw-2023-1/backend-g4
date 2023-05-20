@@ -1,6 +1,6 @@
 package br.edu.pucrs.resources.mapper
 
-import br.edu.pucrs.resources.domain.Configuration
+import br.edu.pucrs.resources.domain.VO.Configuration
 import br.edu.pucrs.resources.dto.request.ConfigurationRequestDTO
 import br.edu.pucrs.resources.dto.response.ConfigurationResponseDTO
 

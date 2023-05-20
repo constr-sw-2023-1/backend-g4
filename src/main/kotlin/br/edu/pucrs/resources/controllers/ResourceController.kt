@@ -63,6 +63,7 @@ class ResourceController(private val resourceService: ResourceService) {
         return ResponseEntity.ok(resource)
     }
 
+    @Operation(summary = "Complex query")
     @GetMapping("/complex-query")
     fun findAllByComplexQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))

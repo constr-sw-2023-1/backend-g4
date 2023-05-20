@@ -52,15 +52,15 @@ class ResourceRepositoryImpl (private val mongoTemplate: MongoTemplate) {
     }
 
     private fun buildKey(key: String): String {
-        var sb = StringBuilder()
+//        var sb = StringBuilder()
+//
+//        sb.append("'")
+//        sb.append(key)
+//        sb.append("'")
+//        sb.append(":")
+//        sb.append(" ")
 
-        sb.append("'")
-        sb.append(key)
-        sb.append("'")
-        sb.append(":")
-        sb.append(" ")
-
-        return sb.toString()
+        return "'$key': "
     }
 }
 
