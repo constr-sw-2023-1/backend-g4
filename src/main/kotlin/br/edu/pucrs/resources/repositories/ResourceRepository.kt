@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface ResourceRepository : MongoRepository<Resource, UUID>
+interface ResourceRepository : MongoRepository<Resource, UUID> {
+    fun findByDescriptionLike(description: String): List<Resource>
+
+}

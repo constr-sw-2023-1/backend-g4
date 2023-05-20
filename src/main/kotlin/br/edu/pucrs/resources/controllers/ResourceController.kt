@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-
 @Tag(name = "Resources API", description = "endpoints resource api")
 @RestController
 @RequestMapping("/resources")
@@ -49,6 +48,25 @@ class ResourceController(private val resourceService: ResourceService) {
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: UUID) {
         return resourceService.deleteById(id)
+    }
+
+    @Operation(summary = "Get resource by part of name")
+    @GetMapping("/findByNameLike/{description}")
+    fun findByDescriptionLike(@PathVariable description: String): List<Resource> {
+        return resourceService.findByDescriptionLike(description)
+    }
+
+    @Operation(summary = "Update resource")
+    @PatchMapping
+    fun updatePatch(@RequestBody resource: Resource): ResponseEntity<Resource> {
+        val resource = resourceService.updatePatch(resource)
+        return ResponseEntity.ok(resource)
+    }
+
+    @Operation(summary = "Complex query")
+    @GetMapping("/complex-query")
+    fun findAllByComplexQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))
     }
 
 }

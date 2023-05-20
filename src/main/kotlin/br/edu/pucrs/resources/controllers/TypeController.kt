@@ -37,14 +37,27 @@ class TypeController(private val typeService: TypeService) {
 
     @Operation(summary = "Get type by name")
     @GetMapping("/findByName/{name}")
-    fun findByName(@PathVariable name: String): Type {
+    fun findByName(@PathVariable name: String): List<Type> {
         return typeService.findByName(name)
+    }
+
+    @Operation(summary = "Get type by part of name")
+    @GetMapping("/findByNameLike/{name}")
+    fun findByNameLike(@PathVariable name: String): List<Type> {
+        return typeService.findByNameLike(name)
     }
 
     @Operation(summary = "Update type")
     @PutMapping
     fun update(@RequestBody type: Type): ResponseEntity<Type> {
         val resource = typeService.update(type)
+        return ResponseEntity.ok(resource)
+    }
+
+    @Operation(summary = "Update type")
+    @PatchMapping
+    fun updatePatch(@RequestBody type: Type): ResponseEntity<Type> {
+        val resource = typeService.updatePatch(type)
         return ResponseEntity.ok(resource)
     }
 
