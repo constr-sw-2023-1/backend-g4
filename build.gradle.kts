@@ -38,6 +38,9 @@ dependencies {
 	implementation("org.springframework.data:spring-data-redis:3.0.5")
 	// logging
 	implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+	// security
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	// utils
 	implementation("org.apache.commons:commons-lang3:3.12.0")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
