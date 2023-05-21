@@ -1,6 +1,8 @@
 package br.edu.pucrs.resources.exceptions
 
-import br.edu.pucrs.resources.dto.response.ErrorResponse
+import br.edu.pucrs.resources.dto.response.ErrorResponseDTO
+import com.mongodb.MongoClientException
+import com.mongodb.MongoTimeoutException
 import org.springframework.http.ResponseEntity
 
 import org.springframework.security.oauth2.server.resource.InvalidBearerTokenException
@@ -14,49 +16,57 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(
         value = [
-            BadRequestException::class,
+            RequestValidationException::class,
             NotFoundException::class,
             AuthenticationException::class,
             AuthorizationException::class,
             ExistingResourceException::class,
         ]
     )
-    fun handleRestException(ex: RestException): ResponseEntity<ErrorResponse> {
+    fun handleRestException(ex: RestException): ResponseEntity<ErrorResponseDTO> {
         return buildResponseEntity(ex)
     }
 
     @Override
     fun handleValidationException(
         exception: MethodArgumentNotValidException
-    ): ResponseEntity<ErrorResponse>
+    ): ResponseEntity<ErrorResponseDTO>
     {
         val errors = exception.bindingResult.allErrors
 
-        val badRequestException = BadRequestException("Validation error: ${errors.first().defaultMessage!!}")
+        val requestValidationException = RequestValidationException(message = "Validation error: ${errors.first().defaultMessage!!}", errors = listOf("Validation error: ${errors.first().defaultMessage!!}"))
 
-        return buildResponseEntity(badRequestException)
+        return buildResponseEntity(requestValidationException)
     }
 
-    private fun buildResponseEntity(exception: RestException): ResponseEntity<ErrorResponse> {
-        val response = ErrorResponse(
+    private fun buildResponseEntity(exception: RestException): ResponseEntity<ErrorResponseDTO> {
+        val response = ErrorResponseDTO(
             exception.code,
-            exception.message
+            exception.message,
+            exception.errors
         )
+
         return ResponseEntity.status(exception.status).body(response)
     }
 
     @ExceptionHandler(org.springframework.security.core.AuthenticationException::class)
-    fun handleAuthenticationException(authException: org.springframework.security.core.AuthenticationException): ResponseEntity<ErrorResponse> {
+    fun handleAuthenticationException(authException: org.springframework.security.core.AuthenticationException): ResponseEntity<ErrorResponseDTO> {
         return buildResponseEntity(AuthenticationException())
     }
 
     @ExceptionHandler(InvalidBearerTokenException::class)
-    fun handleInvalidBearerTokenException(authException: InvalidBearerTokenException): ResponseEntity<ErrorResponse> {
+    fun handleInvalidBearerTokenException(authException: InvalidBearerTokenException): ResponseEntity<ErrorResponseDTO> {
         return buildResponseEntity(AuthenticationException())
     }
 
-    @ExceptionHandler(org.springframework.security.access.AccessDeniedException::class)
-    fun handleAccessDeniedException(authException: AccessDeniedException): ResponseEntity<ErrorResponse> {
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDeniedException(authException: AccessDeniedException): ResponseEntity<ErrorResponseDTO> {
         return buildResponseEntity(AuthorizationException())
     }
+
+    @ExceptionHandler(MongoClientException::class)
+    fun handleMongoTimeoutException(mongoException: MongoClientException): ResponseEntity<ErrorResponseDTO> {
+        return buildResponseEntity(MongoException(mongoException.message!!, errors = listOf("[MongoDB] ${mongoException.message}")))
+    }
+
 }

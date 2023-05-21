@@ -15,7 +15,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:8090}/realms/construcao-sw
+          issuer-uri: ${KEYCLOAK_REALM_URL:http://127.0.0.1:8090}/realms/construcao-sw
       client:
         registration:
           keycloak:
@@ -26,15 +26,15 @@ spring:
             client-name: oauth
         provider:
           keycloak:
-            issuer-uri: ${KEYCLOAK_REALM_URL:http://localhost:8090}/realms/construcao-sw
+            issuer-uri: ${KEYCLOAK_REALM_URL:http://127.0.0.1:8090}/realms/construcao-sw
             user-name-attribute: preferred_username
-            jwk-set-uri: ${KEYCLOAK_REALM_URL:http://localhost:8090}/realms/construcao-sw/protocol/openid-connect/certs
+            jwk-set-uri: ${KEYCLOAK_REALM_URL:http://127.0.0.1:8090}/realms/construcao-sw/protocol/openid-connect/certs
 
 server:
   port: 8084
 
 springdoc:
-  show-actuator: true
+  show-actuator: false
 
 management:
   endpoints:

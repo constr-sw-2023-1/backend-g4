@@ -18,7 +18,7 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
     }
 
     fun findById(id: UUID): Manufacturer {
-        return manufacturerRepository.findById(id).orElseThrow { NotFoundException("Manufacturer not found") }
+        return manufacturerRepository.findById(id).orElseThrow { NotFoundException(message = "Manufacturer not found with ID: $id", errors = listOf("[Resources API] Manufacturer not found with ID: $id")) }
     }
 
     fun update(newManufacturer: Manufacturer): Manufacturer {

@@ -6,4 +6,5 @@ interface RestException {
     val message: String
     val code: String
     val status: HttpStatus
+    val errors: List<String>
 }
