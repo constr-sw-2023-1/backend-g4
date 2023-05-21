@@ -31,6 +31,14 @@ spec:
               value: admin
             - name: MONGODB_UUID_REPRESENTATION
               value: standard
+            - name: KEYCLOAK_CLIENT_ID
+              value: oauth
+            - name: KEYCLOAK_CLIENT_SECRET
+              value: 04bfUatIDO6ipwg1TF2mTzHrX8UZD02Z
+            - name: KEYCLOAK_REALM
+              value: construcao-sw
+            - name: KEYCLOAK_REALM_URL
+              value: http://${KEYCLOAK_SERVICE_IP}:8090
           image: ghcr.io/constr-sw-2023-1/backend-g4:latest
           name: resources
           ports:
