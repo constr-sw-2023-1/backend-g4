@@ -30,5 +30,6 @@ jobs:
       - name: Deploy on Kubernetes
         env:
           MONGODB_SERVICE_IP: ${{ secrets.MONGODB_SERVICE_IP }}
+          KEYCLOAK_SERVICE_IP: ${{ secrets.KEYCLOAK_SERVICE_IP }}
         run: envsubst < <(cat *.yaml) | kubectl apply -f -
         working-directory: ${{ github.workspace }}/k8s
