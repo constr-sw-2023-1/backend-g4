@@ -38,6 +38,7 @@ services:
   resources-service:
     depends_on:
       - mongodb
+      - keycloak
     container_name: resources-service
     build: .
     image: ghcr.io/constr-sw-2023-1/backend-g4:latest
