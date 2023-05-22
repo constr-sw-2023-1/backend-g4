@@ -1,7 +1,7 @@
 package br.edu.pucrs.resources.services
 
 import br.edu.pucrs.resources.domain.Manufacturer
-import br.edu.pucrs.resources.exceptions.ResourceNotFoundException
+import br.edu.pucrs.resources.exceptions.NotFoundException
 import br.edu.pucrs.resources.repositories.ManufacturerRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -18,7 +18,7 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
     }
 
     fun findById(id: UUID): Manufacturer {
-        return manufacturerRepository.findById(id).orElseThrow { ResourceNotFoundException("Manufacturer not found") }
+        return manufacturerRepository.findById(id).orElseThrow { NotFoundException("Manufacturer not found with ID: $id") }
     }
 
     fun update(newManufacturer: Manufacturer): Manufacturer {

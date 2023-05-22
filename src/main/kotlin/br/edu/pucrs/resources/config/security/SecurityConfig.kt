@@ -1,5 +1,6 @@
 package br.edu.pucrs.resources.config.security
 
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.convert.converter.Converter
@@ -20,6 +21,7 @@ class SecurityConfig {
     @Bean
     fun filterChain(
         httpSecurity: HttpSecurity,
+        @Qualifier("customAuthenticationEntryPoint") authEntryPoint: RestAuthenticationEntryPoint
     ): SecurityFilterChain {
         httpSecurity.authorizeHttpRequests()
             .requestMatchers("/actuator/**")
@@ -34,12 +36,17 @@ class SecurityConfig {
             .authorizeHttpRequests()
             .anyRequest().authenticated()
             .and()
+            .exceptionHandling().authenticationEntryPoint(authEntryPoint).and()
             .httpBasic().and()
             .cors().and().csrf().disable()
 
         httpSecurity.oauth2ResourceServer {
             it.jwt()
                 .and()
+                .authenticationEntryPoint(authEntryPoint)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint)
         }
 
         return httpSecurity.build()

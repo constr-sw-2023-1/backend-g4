@@ -1,7 +1,7 @@
 package br.edu.pucrs.resources.services
 
 import br.edu.pucrs.resources.domain.Type
-import br.edu.pucrs.resources.exceptions.ResourceNotFoundException
+import br.edu.pucrs.resources.exceptions.NotFoundException
 import br.edu.pucrs.resources.repositories.TypeRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -19,7 +19,7 @@ class TypeService(private val typeRepository: TypeRepository) {
 
     fun findById(id: UUID): Type {
         return typeRepository.findById(id)
-                .orElseThrow { ResourceNotFoundException("Type not found with id $id") }
+                .orElseThrow { NotFoundException(message = "Type not found with ID: $id") }
     }
 
     fun findByName(name: String): List<Type> {

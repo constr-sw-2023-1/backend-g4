@@ -4,7 +4,7 @@ import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.domain.VO.Configuration
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
-import br.edu.pucrs.resources.exceptions.ResourceNotFoundException
+import br.edu.pucrs.resources.exceptions.NotFoundException
 import br.edu.pucrs.resources.mapper.ConfigurationMapper
 import br.edu.pucrs.resources.mapper.ResourceMapper
 import br.edu.pucrs.resources.repositories.ResourceRepository
@@ -19,8 +19,8 @@ class ResourceService(private val resourceRepository: ResourceRepository,
         private val resourceRepositoryImpl: ResourceRepositoryImpl) {
 
     fun save(resource: ResourceRequestDTO): ResourceResponseDTO {
-        val type = typeService.findById(resource.typeUUID!!)
-        val manufacturer = manufacturerService.findById(resource.manufacturerUUID!!)
+        val type = typeService.findById(resource.typeUUID)
+        val manufacturer = manufacturerService.findById(resource.manufacturerUUID)
         val configurations = resource.configurations.map { ConfigurationMapper.toEntity(it) } as ArrayList<Configuration>
 
         val resourceEntity = ResourceMapper.toEntity(resource, type, manufacturer, configurations)
@@ -33,7 +33,7 @@ class ResourceService(private val resourceRepository: ResourceRepository,
     }
 
     fun findById(id: UUID): Resource {
-        return resourceRepository.findById(id).orElseThrow { ResourceNotFoundException("Recurso não encontrado") }
+        return resourceRepository.findById(id).orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
     }
 
     fun update(newResource: Resource): Resource {
