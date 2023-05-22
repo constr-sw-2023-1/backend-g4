@@ -19,7 +19,7 @@ The following URLs are hosted on OCI, the following links can redirect you to it
 - You can acess [Swagger](http://168.75.107.143:8084/swagger-ui/index.html#/) to check the API docs.
 
 ### 🏥 API Health
-- You can acess [Health Monitor](http://168.75.107.143:8084/actuator/health/) to check the API docs.
+- You can acess [Health Monitor](http://168.75.107.143:8084/actuator/health/) to check the API health.
 
 ## :hammer_and_wrench: Building the project
 Use the following command to build the project:
