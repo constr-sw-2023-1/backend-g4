@@ -45,5 +45,4 @@ spec:
             - containerPort: 8084
       imagePullSecrets:
         - name: ghcr-secret
-      imagePullPolicy: Always
       restartPolicy: Always
