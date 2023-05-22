@@ -33,7 +33,7 @@ class ResourceService(private val resourceRepository: ResourceRepository,
     }
 
     fun findById(id: UUID): Resource {
-        return resourceRepository.findById(id).orElseThrow { NotFoundException(message = "Resource not found with ID: $id", errors = listOf("[Resources API] Resource not found with ID: $id")) }
+        return resourceRepository.findById(id).orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
     }
 
     fun update(newResource: Resource): Resource {

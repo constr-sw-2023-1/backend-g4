@@ -34,7 +34,7 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
     {
         val errors = exception.bindingResult.allErrors
 
-        val requestValidationException = RequestValidationException(message = "Validation error: ${errors.first().defaultMessage!!}", errors = listOf("Validation error: ${errors.first().defaultMessage!!}"))
+        val requestValidationException = RequestValidationException("Validation error: ${errors.first().defaultMessage!!}")
 
         return buildResponseEntity(requestValidationException)
     }
@@ -66,7 +66,7 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(MongoClientException::class)
     fun handleMongoTimeoutException(mongoException: MongoClientException): ResponseEntity<ErrorResponseDTO> {
-        return buildResponseEntity(MongoException(mongoException.message!!, errors = listOf("[MongoDB] ${mongoException.message}")))
+        return buildResponseEntity(MongoException(mongoException.message!!))
     }
 
 }

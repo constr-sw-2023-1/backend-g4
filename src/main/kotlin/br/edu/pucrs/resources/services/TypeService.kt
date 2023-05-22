@@ -19,7 +19,7 @@ class TypeService(private val typeRepository: TypeRepository) {
 
     fun findById(id: UUID): Type {
         return typeRepository.findById(id)
-                .orElseThrow { NotFoundException(message = "Type not found with ID: $id", errors = listOf("[Resources API] Type not found with ID: $id")) }
+                .orElseThrow { NotFoundException(message = "Type not found with ID: $id") }
     }
 
     fun findByName(name: String): List<Type> {

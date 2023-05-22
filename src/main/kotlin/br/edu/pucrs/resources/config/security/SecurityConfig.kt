@@ -43,6 +43,10 @@ class SecurityConfig {
         httpSecurity.oauth2ResourceServer {
             it.jwt()
                 .and()
+                .authenticationEntryPoint(authEntryPoint)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint)
         }
 
         return httpSecurity.build()
