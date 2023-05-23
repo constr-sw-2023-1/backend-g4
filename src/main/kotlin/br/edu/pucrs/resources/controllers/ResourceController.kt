@@ -1,5 +1,6 @@
 package br.edu.pucrs.resources.controllers
 
+import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
@@ -67,6 +68,22 @@ class ResourceController(private val resourceService: ResourceService) {
     @GetMapping("/complex-query")
     fun findAllByComplexQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))
+    }
+
+    @Operation(summary = "Find resources by it`s type")
+    @GetMapping("/findAllByType")
+    fun findAllByType(
+            @RequestParam type: String,
+    ): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllByType(type))
+    }
+
+    @Operation(summary = "Find all resources from a specific manufacturer")
+    @GetMapping("/findAllByManufacturer")
+    fun findAllByManufacturer(
+            @RequestParam manufacturer: String,
+    ): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllByManufacturer(manufacturer))
     }
 
 }
