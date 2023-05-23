@@ -1,5 +1,6 @@
 package br.edu.pucrs.resources.controllers
 
+import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
@@ -50,8 +51,8 @@ class ResourceController(private val resourceService: ResourceService) {
         return resourceService.deleteById(id)
     }
 
-    @Operation(summary = "Get resource by part of name")
-    @GetMapping("/findByNameLike/{description}")
+    @Operation(summary = "Get all resources by description")
+    @GetMapping("/description/{description}")
     fun findByDescriptionLike(@PathVariable description: String): List<Resource> {
         return resourceService.findByDescriptionLike(description)
     }
@@ -63,10 +64,26 @@ class ResourceController(private val resourceService: ResourceService) {
         return ResponseEntity.ok(resource)
     }
 
-    @Operation(summary = "Complex query")
+    @Operation(summary = "Get all resources by complex query")
     @GetMapping("/complex-query")
     fun findAllByComplexQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))
+    }
+
+    @Operation(summary = "Get all resources by type")
+    @GetMapping("/type")
+    fun findAllByType(
+            @RequestParam type: String,
+    ): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllByType(type))
+    }
+
+    @Operation(summary = "Get all resources by manufacturer")
+    @GetMapping("/manufacturer")
+    fun findAllByManufacturer(
+            @RequestParam manufacturer: String,
+    ): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllByManufacturer(manufacturer))
     }
 
 }
