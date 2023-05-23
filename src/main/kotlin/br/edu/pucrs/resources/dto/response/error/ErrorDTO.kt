@@ -1,8 +1,8 @@
 package br.edu.pucrs.resources.dto.response.error
 
-data class Error (
+data class ErrorDTO (
     val source: String,
     val code: String?,
-    val message: String,
-    val stack: List<String>? = null
+    val description: String,
+    val cause: Cause
 )

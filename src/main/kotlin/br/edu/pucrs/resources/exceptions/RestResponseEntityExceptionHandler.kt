@@ -1,7 +1,7 @@
 package br.edu.pucrs.resources.exceptions
 
-import br.edu.pucrs.resources.dto.response.ErrorResponseDTO
-import br.edu.pucrs.resources.dto.response.error.Error
+import br.edu.pucrs.resources.dto.response.error.Cause
+import br.edu.pucrs.resources.dto.response.error.ErrorDTO
 import com.mongodb.MongoClientException
 import org.springframework.http.ResponseEntity
 
@@ -24,14 +24,14 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
             ExistingResourceException::class,
         ]
     )
-    fun handleRestException(ex: RestException): ResponseEntity<ErrorResponseDTO> {
+    fun handleRestException(ex: RestException): ResponseEntity<List<ErrorDTO>> {
         return buildResponseEntity(ex)
     }
 
     @Override
     fun handleValidationException(
         exception: MethodArgumentNotValidException
-    ): ResponseEntity<ErrorResponseDTO>
+    ): ResponseEntity<List<ErrorDTO>>
     {
         val errors = exception.bindingResult.allErrors
 
@@ -40,18 +40,30 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
         return buildResponseEntity(requestValidationException)
     }
 
-    private fun buildResponseEntity(exception: RestException): ResponseEntity<ErrorResponseDTO> {
-        val response = ErrorResponseDTO(errors = Stack<Error>())
+    private fun buildResponseEntity(exception: RestException): ResponseEntity<List<ErrorDTO>> {
+        val response = mutableListOf<ErrorDTO>()
 
+        response.add(ErrorDTO(
+            source = exception.source,
+            code = exception.code,
+            description = "An error occurred while processing your request.",
+            cause = Cause(
+                message = exception.message,
+                stack = exception.stack
+            )
+        ))
 
-        response.errors.push(Error(source = exception.source, code = exception.code, message = exception.message, stack = exception.stack))
-
-        if (response.errors.count { error -> error.source == "Resources API" } == 0) {
-            response.errors.add(0,Error(
+        if (response.count { error -> error.source == "Resources API" } == 0) {
+            response.clear()
+            response.add(0,ErrorDTO(
                 source = "Resources API",
-                code = "G4-007",
-                message = "An error occurred calling an external service.",
-                stack = exception.stack))
+                code = exception.code,
+                description = "An error has occurred while calling ${exception.source}.",
+                cause = Cause(
+                    message = exception.message,
+                    stack = exception.stack
+                )
+            ))
         }
 
 
@@ -59,28 +71,28 @@ class RestResponseEntityExceptionHandler : ResponseEntityExceptionHandler() {
     }
 
     @ExceptionHandler(org.springframework.security.core.AuthenticationException::class)
-    fun handleAuthenticationException(authException: org.springframework.security.core.AuthenticationException): ResponseEntity<ErrorResponseDTO> {
+    fun handleAuthenticationException(authException: org.springframework.security.core.AuthenticationException): ResponseEntity<List<ErrorDTO>> {
         return buildResponseEntity(AuthenticationException(message = authException.message!!, stack = authException.stackTrace
             .filter { s -> s.toString().contains("br.edu.pucrs") }
             .map { s -> s.toString() }))
     }
 
     @ExceptionHandler(InvalidBearerTokenException::class)
-    fun handleInvalidBearerTokenException(authException: InvalidBearerTokenException): ResponseEntity<ErrorResponseDTO> {
+    fun handleInvalidBearerTokenException(authException: InvalidBearerTokenException): ResponseEntity<List<ErrorDTO>> {
         return buildResponseEntity(AuthenticationException(message = authException.message!!, stack = authException.stackTrace
             .filter { s -> s.toString().contains("br.edu.pucrs") }
             .map { s -> s.toString() }))
     }
 
     @ExceptionHandler(AccessDeniedException::class)
-    fun handleAccessDeniedException(authException: AccessDeniedException): ResponseEntity<ErrorResponseDTO> {
+    fun handleAccessDeniedException(authException: AccessDeniedException): ResponseEntity<List<ErrorDTO>> {
         return buildResponseEntity(AuthorizationException(message = authException.message!!, stack = authException.stackTrace
             .filter { s -> s.toString().contains("br.edu.pucrs") }
             .map { s -> s.toString() }))
     }
 
     @ExceptionHandler(MongoClientException::class)
-    fun handleMongoTimeoutException(mongoException: MongoClientException): ResponseEntity<ErrorResponseDTO> {
+    fun handleMongoTimeoutException(mongoException: MongoClientException): ResponseEntity<List<ErrorDTO>> {
         return buildResponseEntity(MongoException(message = mongoException.message!!,
             stack = mongoException.stackTrace
                 .filter { s -> s.toString().contains("br.edu.pucrs") }
