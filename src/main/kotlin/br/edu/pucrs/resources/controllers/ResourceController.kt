@@ -51,8 +51,8 @@ class ResourceController(private val resourceService: ResourceService) {
         return resourceService.deleteById(id)
     }
 
-    @Operation(summary = "Get resource by part of name")
-    @GetMapping("/findByNameLike/{description}")
+    @Operation(summary = "Get all resources by description")
+    @GetMapping("/description/{description}")
     fun findByDescriptionLike(@PathVariable description: String): List<Resource> {
         return resourceService.findByDescriptionLike(description)
     }
@@ -64,22 +64,22 @@ class ResourceController(private val resourceService: ResourceService) {
         return ResponseEntity.ok(resource)
     }
 
-    @Operation(summary = "Complex query")
+    @Operation(summary = "Get all resources by complex query")
     @GetMapping("/complex-query")
     fun findAllByComplexQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))
     }
 
-    @Operation(summary = "Find resources by it`s type")
-    @GetMapping("/findAllByType")
+    @Operation(summary = "Get all resources by type")
+    @GetMapping("/type")
     fun findAllByType(
             @RequestParam type: String,
     ): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByType(type))
     }
 
-    @Operation(summary = "Find all resources from a specific manufacturer")
-    @GetMapping("/findAllByManufacturer")
+    @Operation(summary = "Get all resources by manufacturer")
+    @GetMapping("/manufacturer")
     fun findAllByManufacturer(
             @RequestParam manufacturer: String,
     ): ResponseEntity<List<ResourceResponseDTO>> {
