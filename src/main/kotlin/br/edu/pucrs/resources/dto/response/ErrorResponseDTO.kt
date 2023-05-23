@@ -1,9 +1,8 @@
 package br.edu.pucrs.resources.dto.response
 
-import java.util.Queue
+import br.edu.pucrs.resources.dto.response.error.Error
+import java.util.Stack
 
 data class ErrorResponseDTO(
-    val code: String,
-    val message: String,
-    val errors: Queue<String>
+    val errors: Stack<Error>
 )
