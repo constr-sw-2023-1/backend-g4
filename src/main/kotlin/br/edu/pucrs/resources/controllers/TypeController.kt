@@ -9,9 +9,9 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@Tag(name = "Type", description = "endpoints type api")
+@Tag(name = "Types API", description = "Endpoints for Types API")
 @RestController
-@RequestMapping("/types")
+@RequestMapping("/resources/types")
 class TypeController(private val typeService: TypeService) {
 
     @Operation(summary = "Crate a new resource")

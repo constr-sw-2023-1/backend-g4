@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@Tag(name = "Manufacturers API", description = "endpoints manufacturer api")
+@Tag(name = "Manufacturers API", description = "Endpoints for Manufacturers API")
 @RestController
-@RequestMapping("/manufacturers")
+@RequestMapping("/resources/manufacturers")
 class ManufacturerController(private val manufacturerService: ManufacturerService) {
 
     @Operation(summary = "Create a new manufacturer")

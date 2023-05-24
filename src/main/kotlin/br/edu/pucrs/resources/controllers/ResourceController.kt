@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@Tag(name = "Resources API", description = "endpoints resource api")
+@Tag(name = "Resources API", description = "Endpoints for Resources API")
 @RestController
 @RequestMapping("/resources")
 class ResourceController(private val resourceService: ResourceService) {
@@ -71,17 +71,17 @@ class ResourceController(private val resourceService: ResourceService) {
     }
 
     @Operation(summary = "Get all resources by type")
-    @GetMapping("/type")
+    @GetMapping("/type/{type}")
     fun findAllByType(
-            @RequestParam type: String,
+            @PathVariable type: String,
     ): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByType(type))
     }
 
     @Operation(summary = "Get all resources by manufacturer")
-    @GetMapping("/manufacturer")
+    @GetMapping("/manufacturer/{manufacturer}")
     fun findAllByManufacturer(
-            @RequestParam manufacturer: String,
+            @PathVariable manufacturer: String
     ): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByManufacturer(manufacturer))
     }
