@@ -1,0 +1,163 @@
+{
+    "Resources": [
+    {
+        "id": "ffe7851b-3dac-4c84-823b-5dd7f4c48ce4",
+        "description": "Notebook Dell Optiplex 7010",
+        "type": "ae99e235-b09d-4e65-b294-9622749c00f4",
+        "manufacturer": "f9cf9f4b-c641-4002-82ea-1528c77e2ed0",
+        "configurations": [
+            {
+                "component": "processador",
+                "description": "Intel Core i5"
+            },
+            {
+                "component": "memoria_ram",
+                "description": "8GB DDR4"
+            },
+            {
+                "component": "armazenamento",
+                "description": "1TB HDD"
+            },
+            {
+                "component": "placa_de_video",
+                "description": "Nvidia GTX 1050 Ti"
+            },
+            {
+                "component": "sistema_operacional",
+                "description": "Windows 10 Home"
+            }
+        ]
+    },
+    {
+        "id": "10e1c260-f4f7-46d6-9f18-25adb6293f5a",
+        "description": "Projetor Epson",
+        "type": "afa62a12-f805-44af-a101-fbbd13977562",
+        "manufacturer": "a5240a69-debb-476a-978a-e6cc6904b11a",
+        "configurations": [
+            {
+                "component": "resolucao",
+                "description": "1024x768"
+            },
+            {
+                "component": "luminosidade",
+                "description": "3600 lumens"
+            },
+            {
+                "component": "tecnologia",
+                "description": "3LCD"
+            }
+        ]
+    },
+    {
+        "id": "70208306-3bee-4b13-ad1f-952296b356cd",
+        "description": "Aparelho de som Sony",
+        "type": "ec5604d7-1aa7-4d20-8a14-a0901efe5ce7",
+        "manufacturer": "2ea34f85-a4f4-4051-b045-4d2e8269b943",
+        "configurations": [
+            {
+                "component": "potencia",
+                "description": "50W RMS"
+            },
+            {
+                "component": "conectividade",
+                "description": "Bluetooth, NFC, USB, CD, FM/AM"
+            },
+            {
+                "component": "funcoes",
+                "description": "Equalizador, Sleep Timer, Party Chain, Mega Bass"
+            }
+        ]
+    },
+    {
+        "id": "1c02a200-e627-4eef-8866-93916004da08",
+        "description": "Televisao Samsung 55 polegadas",
+        "type": "0b4033b5-fa2f-47a3-b9fe-efd6372cbd58",
+        "manufacturer": "1049e567-6f7f-4da9-ba1e-f5683e5ef438",
+        "configurations": [
+            {
+                "component": "tamanho_da_tela",
+                "description": "55 polegadas"
+            },
+            {
+                "component": "resolucao",
+                "description": "4K Ultra HD"
+            },
+            {
+                "component": "tecnologia",
+                "description": "QLED"
+            },
+            {
+                "component": "conectividade",
+                "description": "Wi-Fi, Bluetooth, HDMI"
+            },
+            {
+                "component": "audio",
+                "description": "Som surround"
+            }
+        ]
+    },
+    {
+        "id": "53370b21-5f72-48cb-ba90-7806b82c920c",
+        "description": "Microfone de mesa Samson Q2U",
+        "type": "afa62a12-f805-44af-a101-fbbd13977562",
+        "manufacturer": "6a0cc1b2-3bc7-492b-ba8c-12a349360108",
+        "configurations": [
+            {
+                "component": "tipo_de_conexao",
+                "description": "USB ou XLR"
+            },
+            {
+                "component": "frequencia_de_resposta",
+                "description": "50Hz-15kHz"
+            }
+        ]
+    }
+],
+
+"ResourceTypes": [
+    {
+        "id": "ae99e235-b09d-4e65-b294-9622749c00f4",
+        "nome": "Computador"
+    },
+    {
+        "id": "0b4033b5-fa2f-47a3-b9fe-efd6372cbd58",
+        "nome": "Monitores/Televisores"
+    },
+    {
+        "id": "ec5604d7-1aa7-4d20-8a14-a0901efe5ce7",
+        "nome": "Equipamentos de Som"
+    },
+    {
+        "id": "afa62a12-f805-44af-a101-fbbd139775624",
+        "nome": "Uso Geral"
+    }
+],
+
+"Manufacturers": [
+    {
+        "id": "f9cf9f4b-c641-4002-82ea-1528c77e2ed0",
+        "nome": "Dell"
+    },
+    {
+        "id": "2ea34f85-a4f4-4051-b045-4d2e8269b943",
+        "nome": "Sony"
+    },
+    {
+        "id": "a5240a69-debb-476a-978a-e6cc6904b11a",
+        "nome": "Epson",
+        "endereco": "endereco_fabricante_2"
+    },
+    {
+        "id": "74de653a-48ac-4d76-a64d-2bdae86925a2",
+        "nome": "HP"
+    },
+    {
+        "id": "1049e567-6f7f-4da9-ba1e-f5683e5ef438",
+        "nome": "Samsung"
+    },
+    {
+        "id": "6a0cc1b2-3bc7-492b-ba8c-12a349360108",
+        "nome": "Samson"
+    }
+]
+}
