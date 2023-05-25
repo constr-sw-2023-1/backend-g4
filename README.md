@@ -39,3 +39,8 @@ Use the following commands to run the project with Docker:
 make build
 make up
 ```
+
+## 🥬MongoDB Diagram
+<img width="460" alt="image" src="https://github.com/constr-sw-2023-1/backend-g4/assets/83477377/f40e68a7-c9a2-4c87-bbf1-571120636ca0">
+
+
