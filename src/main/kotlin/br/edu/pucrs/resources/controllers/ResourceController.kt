@@ -1,6 +1,5 @@
 package br.edu.pucrs.resources.controllers
 
-import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
@@ -71,7 +70,7 @@ class ResourceController(private val resourceService: ResourceService) {
     }
 
     @Operation(summary = "Get all resources by complex query")
-    @GetMapping("/complex-query")
+    @GetMapping("/simple-query")
     fun findAllBySimpleQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllBySimpleQuery(params))
     }
