@@ -61,6 +61,13 @@ class ResourceService(private val resourceRepository: ResourceRepository,
             ResourceMapper.toResponse(it)
         }
     }
+
+    fun findAllBySimpleQuery(params: Map<String, String>): List<ResourceResponseDTO> {
+        return resourceRepositoryImpl.findAllBySimpleQuery(params).map {
+            ResourceMapper.toResponse(it)
+        }
+    }
+
     fun findAllByType(type:String): List<ResourceResponseDTO> {
         return resourceRepository.findAllByType_Name(type).map {
             ResourceMapper.toResponse(it)

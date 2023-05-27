@@ -10,26 +10,45 @@ import org.springframework.stereotype.Repository
 class ResourceRepositoryImpl (private val mongoTemplate: MongoTemplate) {
 
     fun findAllByComplexQuery(params: Map<String, String>): List<Resource> {
-        val query = BasicQuery(buildFilter(params))
+        val query = BasicQuery(buildFilter(params, true))
         val result: List<Resource> = mongoTemplate.find(query, Resource::class.java)
         return result
     }
 
-    private fun buildFilter(params: Map<String, String>) : String {
+    fun findAllBySimpleQuery(params: Map<String, String>): List<Resource> {
+        val query = BasicQuery(buildFilter(params, false))
+        val result: List<Resource> = mongoTemplate.find(query, Resource::class.java)
+        return result
+    }
+
+    private fun buildFilter(params: Map<String, String>, isComplexQuery: Boolean) : String {
+
         val sb = StringBuilder("{ ")
 
         params.forEach { (key, value) ->
             run {
-                sb.append(buildKey(key))
-                sb.append("{ ")
-                val splited = value.split("}")
-                sb.append(getOperator(splited[0]))
-                sb.append(":")
-                sb.append("'")
-                sb.append(splited[1])
-                sb.append("'")
-                sb.append("}")
-                sb.append(",")
+                var operator = "eq"
+                var param = value
+
+                if (isComplexQuery) {
+                    val splited = value.split("}")
+                    operator = getOperator(splited[0])
+                    param = splited[1]
+                }
+//                sb.append(buildKey(key))
+//                sb.append("{ ")
+
+//                sb.append(getOperator(splited[0]))
+//                sb.append(":")
+//                sb.append("'")
+//                sb.append(splited[1])
+//                sb.append("'")
+//                sb.append("}")
+//                sb.append(",")
+
+                val bk = buildKey(key)
+
+                sb.append("$bk { $operator: '$param' }, ")
             }
         }
         sb.append(" }")
@@ -52,14 +71,6 @@ class ResourceRepositoryImpl (private val mongoTemplate: MongoTemplate) {
     }
 
     private fun buildKey(key: String): String {
-//        var sb = StringBuilder()
-//
-//        sb.append("'")
-//        sb.append(key)
-//        sb.append("'")
-//        sb.append(":")
-//        sb.append(" ")
-
         return "'$key': "
     }
 }

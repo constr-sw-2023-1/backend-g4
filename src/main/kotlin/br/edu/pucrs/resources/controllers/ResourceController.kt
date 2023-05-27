@@ -70,6 +70,12 @@ class ResourceController(private val resourceService: ResourceService) {
         return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))
     }
 
+    @Operation(summary = "Get all resources by complex query")
+    @GetMapping("/complex-query")
+    fun findAllBySimpleQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllBySimpleQuery(params))
+    }
+
     @Operation(summary = "Get all resources by type")
     @GetMapping("/type/{type}")
     fun findAllByType(
