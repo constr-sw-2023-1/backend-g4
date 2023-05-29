@@ -1,6 +1,5 @@
 package br.edu.pucrs.resources.controllers
 
-import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
@@ -41,8 +40,8 @@ class ResourceController(private val resourceService: ResourceService) {
     @Operation(summary = "Update resource")
     @PutMapping
     fun update(@RequestBody resource: Resource): ResponseEntity<Resource> {
-        val resource = resourceService.update(resource)
-        return ResponseEntity.ok(resource)
+        val updatedResource = resourceService.update(resource)
+        return ResponseEntity.ok(updatedResource)
     }
 
     @Operation(summary = "Delete resource")
@@ -60,8 +59,8 @@ class ResourceController(private val resourceService: ResourceService) {
     @Operation(summary = "Update resource")
     @PatchMapping
     fun updatePatch(@RequestBody resource: Resource): ResponseEntity<Resource> {
-        val resource = resourceService.updatePatch(resource)
-        return ResponseEntity.ok(resource)
+        val updatedResource = resourceService.updatePatch(resource)
+        return ResponseEntity.ok(updatedResource)
     }
 
     @Operation(summary = "Get all resources by complex query")
@@ -84,6 +83,14 @@ class ResourceController(private val resourceService: ResourceService) {
             @PathVariable manufacturer: String
     ): ResponseEntity<List<ResourceResponseDTO>> {
         return ResponseEntity.ok(this.resourceService.findAllByManufacturer(manufacturer))
+    }
+
+    @Operation(summary = "Get all resources by configuration")
+    @GetMapping("/configuration/{configuration}")
+    fun findAllByConfiguration(
+        @PathVariable configuration: String
+    ): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(this.resourceService.findAllByConfiguration(configuration))
     }
 
 }

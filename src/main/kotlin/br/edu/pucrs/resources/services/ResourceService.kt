@@ -1,6 +1,5 @@
 package br.edu.pucrs.resources.services
 
-import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.domain.VO.Configuration
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
@@ -69,6 +68,13 @@ class ResourceService(private val resourceRepository: ResourceRepository,
 
     fun findAllByManufacturer(manufacturer: String): List<ResourceResponseDTO>? {
         return resourceRepository.findAllByManufacturer_Name(manufacturer).map {
+            ResourceMapper.toResponse(it)
+        }
+
+    }
+
+    fun findAllByConfiguration(configuration: String): List<ResourceResponseDTO>? {
+        return resourceRepository.findAllByConfigurations_Component(configuration).map {
             ResourceMapper.toResponse(it)
         }
 
