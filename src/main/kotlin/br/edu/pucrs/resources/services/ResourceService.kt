@@ -3,6 +3,8 @@ package br.edu.pucrs.resources.services
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.domain.VO.Configuration
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
+import br.edu.pucrs.resources.dto.request.ResourcePatchRequestDTO
+import br.edu.pucrs.resources.dto.request.ResourceUpdateRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
 import br.edu.pucrs.resources.exceptions.NotFoundException
 import br.edu.pucrs.resources.mapper.ConfigurationMapper
@@ -13,15 +15,18 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ResourceService(private val resourceRepository: ResourceRepository,
-        private val typeService: TypeService,
-        private val manufacturerService: ManufacturerService,
-        private val resourceRepositoryImpl: ResourceRepositoryImpl) {
+class ResourceService(
+    private val resourceRepository: ResourceRepository,
+    private val typeService: TypeService,
+    private val manufacturerService: ManufacturerService,
+    private val resourceRepositoryImpl: ResourceRepositoryImpl
+) {
 
     fun save(resource: ResourceRequestDTO): ResourceResponseDTO {
         val type = typeService.findById(resource.typeUUID)
         val manufacturer = manufacturerService.findById(resource.manufacturerUUID)
-        val configurations = resource.configurations.map { ConfigurationMapper.toEntity(it) } as ArrayList<Configuration>
+        val configurations =
+            resource.configurations.map { ConfigurationMapper.toEntity(it) } as ArrayList<Configuration>
 
         val resourceEntity = ResourceMapper.toEntity(resource, type, manufacturer, configurations)
 
@@ -33,12 +38,18 @@ class ResourceService(private val resourceRepository: ResourceRepository,
     }
 
     fun findById(id: UUID): Resource {
-        return resourceRepository.findById(id).orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
+        return resourceRepository.findById(id)
+            .orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
     }
 
-    fun update(newResource: Resource): Resource {
-        findById(newResource.id!!)
-        return resourceRepository.save(newResource)
+    fun update(id: UUID, newResource: ResourceUpdateRequestDTO): Resource {
+        val resourceToUpdate = findById(id)
+
+        resourceToUpdate.description = newResource.description
+        resourceToUpdate.type = newResource.type
+        resourceToUpdate.manufacturer = newResource.manufacturer
+        resourceToUpdate.configurations = newResource.configurations!!.map { ConfigurationMapper.toEntity(it) }
+        return resourceRepository.save(resourceToUpdate)
     }
 
     fun deleteById(id: UUID) {
@@ -46,13 +57,19 @@ class ResourceService(private val resourceRepository: ResourceRepository,
         return resourceRepository.deleteById(id)
     }
 
-    fun findByDescriptionLike(description: String) : List<Resource> {
+    fun findByDescriptionLike(description: String): List<Resource> {
         return resourceRepository.findByDescriptionLike(description)
     }
 
-    fun updatePatch(newResource: Resource): Resource {
-        findById(newResource.id!!)
-        return resourceRepository.save(newResource)
+    fun updatePatch(id: UUID, resource: ResourcePatchRequestDTO): Resource {
+        val resourceToUpdate = findById(id)
+
+        resourceToUpdate.description = resource.description ?: resourceToUpdate.description
+        resourceToUpdate.type = resource.type ?: resourceToUpdate.type
+        resourceToUpdate.manufacturer = resource.manufacturer ?: resourceToUpdate.manufacturer
+        resourceToUpdate.configurations = resource.configurations.map { ConfigurationMapper.toEntity(it) }
+
+        return resourceRepository.save(resourceToUpdate)
     }
 
     fun findAllByComplexQuery(params: Map<String, String>): List<ResourceResponseDTO> {
@@ -60,7 +77,8 @@ class ResourceService(private val resourceRepository: ResourceRepository,
             ResourceMapper.toResponse(it)
         }
     }
-    fun findAllByType(type:String): List<ResourceResponseDTO> {
+
+    fun findAllByType(type: String): List<ResourceResponseDTO> {
         return resourceRepository.findAllByType_Name(type).map {
             ResourceMapper.toResponse(it)
         }
