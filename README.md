@@ -41,6 +41,8 @@ make up
 ```
 
 ## 🥬MongoDB Diagram
-<img width="460" alt="image" src="https://github.com/constr-sw-2023-1/backend-g4/assets/83477377/f40e68a7-c9a2-4c87-bbf1-571120636ca0">
+![image](https://github.com/constr-sw-2023-1/backend-g4/assets/83477377/4fff502c-eee3-49bf-9b23-46b65b8c7920)
+![image](https://github.com/constr-sw-2023-1/backend-g4/assets/83477377/e1053b04-40b2-4699-8968-ab512cc92282)
+
 
 
