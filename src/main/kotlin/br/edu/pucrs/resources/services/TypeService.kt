@@ -1,7 +1,9 @@
 package br.edu.pucrs.resources.services
 
 import br.edu.pucrs.resources.domain.Type
+import br.edu.pucrs.resources.dto.request.TypeDTO
 import br.edu.pucrs.resources.exceptions.NotFoundException
+import br.edu.pucrs.resources.exceptions.RequestValidationException
 import br.edu.pucrs.resources.repositories.TypeRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -19,7 +21,7 @@ class TypeService(private val typeRepository: TypeRepository) {
 
     fun findById(id: UUID): Type {
         return typeRepository.findById(id)
-                .orElseThrow { NotFoundException(message = "Type not found with ID: $id") }
+            .orElseThrow { NotFoundException(message = "Type not found with ID: $id") }
     }
 
     fun findByName(name: String): List<Type> {
@@ -30,19 +32,27 @@ class TypeService(private val typeRepository: TypeRepository) {
         return typeRepository.findByNameLike(name)
     }
 
-    fun update(newType: Type): Type {
-        findById(newType.id!!)
-        return typeRepository.save(newType)
+    fun update(id: UUID, newType: TypeDTO): Type {
+        val typeToUpdate = findById(id)
+
+        if (newType.name == null) {
+            throw RequestValidationException("Name cannot be null")
+        }
+        typeToUpdate.name = newType.name
+
+        return typeRepository.save(typeToUpdate)
+    }
+
+    fun updateName(id: UUID, newType: TypeDTO): Type {
+        val typeToUpdate = findById(id)
+
+        typeToUpdate.name = newType.name ?: typeToUpdate.name
+        return typeRepository.save(typeToUpdate)
     }
 
     fun deleteById(id: UUID) {
         findById(id)
         return typeRepository.deleteById(id)
-    }
-
-    fun updatePatch(newType: Type): Type {
-        findById(newType.id!!)
-        return typeRepository.save(newType)
     }
 
 }

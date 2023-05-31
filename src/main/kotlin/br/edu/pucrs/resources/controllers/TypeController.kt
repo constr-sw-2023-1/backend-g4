@@ -1,6 +1,7 @@
 package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Type
+import br.edu.pucrs.resources.dto.request.TypeDTO
 import br.edu.pucrs.resources.services.TypeService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -48,16 +49,16 @@ class TypeController(private val typeService: TypeService) {
     }
 
     @Operation(summary = "Update type")
-    @PutMapping
-    fun update(@RequestBody type: Type): ResponseEntity<Type> {
-        val resource = typeService.update(type)
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: UUID, @RequestBody type: TypeDTO): ResponseEntity<Type> {
+        val resource = typeService.update(id, type)
         return ResponseEntity.ok(resource)
     }
 
     @Operation(summary = "Update type")
-    @PatchMapping
-    fun updatePatch(@RequestBody type: Type): ResponseEntity<Type> {
-        val resource = typeService.updatePatch(type)
+    @PatchMapping("/{id}")
+    fun updatePatch(@PathVariable id: UUID, @RequestBody type: TypeDTO): ResponseEntity<Type> {
+        val resource = typeService.updateName(id, type)
         return ResponseEntity.ok(resource)
     }
 

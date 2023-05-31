@@ -1,6 +1,7 @@
 package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Manufacturer
+import br.edu.pucrs.resources.dto.request.ManufacturerUpdateDTO
 import br.edu.pucrs.resources.services.ManufacturerService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -12,11 +13,6 @@ import java.util.*
 @RequestMapping("/resources/manufacturers")
 class ManufacturerController(private val manufacturerService: ManufacturerService) {
 
-    @Operation(summary = "Create a new manufacturer")
-    @PostMapping
-    fun save(@RequestBody manufacturer: Manufacturer): Manufacturer {
-        return manufacturerService.save(manufacturer)
-    }
 
     @Operation(summary = "Get all manufacturers")
     @GetMapping
@@ -30,10 +26,22 @@ class ManufacturerController(private val manufacturerService: ManufacturerServic
         return manufacturerService.findById(id)
     }
 
+    @Operation(summary = "Create a new manufacturer")
+    @PostMapping
+    fun save(@RequestBody manufacturer: Manufacturer): Manufacturer {
+        return manufacturerService.save(manufacturer)
+    }
+
     @Operation(summary = "Update manufacturer")
-    @PutMapping
-    fun update(@RequestBody manufacturer: Manufacturer): Manufacturer {
-        return manufacturerService.update(manufacturer)
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: UUID, @RequestBody manufacturer: ManufacturerUpdateDTO): Manufacturer {
+        return manufacturerService.update(id, manufacturer)
+    }
+
+    @Operation(summary = "Update manufacturer")
+    @PatchMapping("/{id}")
+    fun patch(@PathVariable id: UUID, @RequestBody manufacturer: ManufacturerUpdateDTO): Manufacturer {
+        return manufacturerService.updatePatch(id, manufacturer)
     }
 
     @Operation(summary = "Delete manufacturer")

@@ -2,6 +2,8 @@ package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Resource
 import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
+import br.edu.pucrs.resources.dto.request.ResourcePatchRequestDTO
+import br.edu.pucrs.resources.dto.request.ResourceUpdateRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
 import br.edu.pucrs.resources.services.ResourceService
 import io.swagger.v3.oas.annotations.Operation
@@ -38,9 +40,16 @@ class ResourceController(private val resourceService: ResourceService) {
     }
 
     @Operation(summary = "Update resource")
-    @PutMapping
-    fun update(@RequestBody resource: Resource): ResponseEntity<Resource> {
-        val updatedResource = resourceService.update(resource)
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: UUID, @RequestBody resource: ResourceUpdateRequestDTO): ResponseEntity<Resource> {
+        val updatedResource = resourceService.update(id, resource)
+        return ResponseEntity.ok(updatedResource)
+    }
+
+    @Operation(summary = "Update resource")
+    @PatchMapping("/{id}")
+    fun updatePatch(@PathVariable id: UUID, @RequestBody resource: ResourcePatchRequestDTO): ResponseEntity<Resource> {
+        val updatedResource = resourceService.updatePatch(id, resource)
         return ResponseEntity.ok(updatedResource)
     }
 
@@ -54,13 +63,6 @@ class ResourceController(private val resourceService: ResourceService) {
     @GetMapping("/description/{description}")
     fun findByDescriptionLike(@PathVariable description: String): List<Resource> {
         return resourceService.findByDescriptionLike(description)
-    }
-
-    @Operation(summary = "Update resource")
-    @PatchMapping
-    fun updatePatch(@RequestBody resource: Resource): ResponseEntity<Resource> {
-        val updatedResource = resourceService.updatePatch(resource)
-        return ResponseEntity.ok(updatedResource)
     }
 
     @Operation(summary = "Get all resources by complex query")

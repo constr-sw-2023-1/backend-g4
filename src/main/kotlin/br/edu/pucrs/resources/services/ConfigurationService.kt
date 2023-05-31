@@ -53,7 +53,7 @@ class ConfigurationService(private val resourceRepository: ResourceRepository,
 
     fun deleteById(id: UUID) {
         val resource = resourceService.findById(id)
-        resource.configurations.clear();
+        resource.configurations = emptyList();
 
         resourceRepository.save(resource)
     }
