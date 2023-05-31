@@ -33,10 +33,6 @@ class ResourceService(
         return ResourceMapper.toResponse(resourceRepository.save(resourceEntity))
     }
 
-    fun findAll(): List<Resource> {
-        return resourceRepository.findAll()
-    }
-
     fun findById(id: UUID): Resource {
         return resourceRepository.findById(id)
             .orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }

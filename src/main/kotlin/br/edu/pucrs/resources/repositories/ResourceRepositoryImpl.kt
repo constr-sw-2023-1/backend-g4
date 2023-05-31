@@ -22,11 +22,13 @@ class ResourceRepositoryImpl (private val mongoTemplate: MongoTemplate) {
             run {
                 sb.append(buildKey(key))
                 sb.append("{ ")
-                val splited = value.split("}")
-                sb.append(getOperator(splited[0]))
+
+                val split = value.replace("%",".*").split("}")
+
+                sb.append(getOperator(if(split.count() == 1) "eq" else split[0]))
                 sb.append(":")
                 sb.append("'")
-                sb.append(splited[1])
+                sb.append(if(split.count() == 1) split[0] else split[1])
                 sb.append("'")
                 sb.append("}")
                 sb.append(",")

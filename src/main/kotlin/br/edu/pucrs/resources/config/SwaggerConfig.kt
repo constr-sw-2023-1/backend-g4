@@ -23,7 +23,7 @@ class SwaggerConfig {
                 Info()
                     .title("Resources API - Group 4")
                     .description("Resources API documentation")
-                    .version("v0.0.1")
+                    .version("v0.1.0")
             )
             .addSecurityItem(SecurityRequirement().addList(SECURITY_SCHEME_NAME))
             .components(

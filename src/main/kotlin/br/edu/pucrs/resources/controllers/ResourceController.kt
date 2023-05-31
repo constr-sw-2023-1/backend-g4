@@ -1,8 +1,8 @@
 package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Resource
-import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.request.ResourcePatchRequestDTO
+import br.edu.pucrs.resources.dto.request.ResourceRequestDTO
 import br.edu.pucrs.resources.dto.request.ResourceUpdateRequestDTO
 import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
 import br.edu.pucrs.resources.services.ResourceService
@@ -27,9 +27,8 @@ class ResourceController(private val resourceService: ResourceService) {
 
     @Operation(summary = "Get all resources")
     @GetMapping
-    fun findAll(): ResponseEntity<List<Resource>> {
-        val resources = resourceService.findAll()
-        return ResponseEntity.ok(resources)
+    fun findAllByComplexQuery(@RequestParam(defaultValue = "{}") params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
+        return ResponseEntity.ok(resourceService.findAllByComplexQuery(params))
     }
 
     @Operation(summary = "Get resource by id")
@@ -63,12 +62,6 @@ class ResourceController(private val resourceService: ResourceService) {
     @GetMapping("/description/{description}")
     fun findByDescriptionLike(@PathVariable description: String): List<Resource> {
         return resourceService.findByDescriptionLike(description)
-    }
-
-    @Operation(summary = "Get all resources by complex query")
-    @GetMapping("/complex-query")
-    fun findAllByComplexQuery(@RequestParam params: Map<String, String>): ResponseEntity<List<ResourceResponseDTO>> {
-        return ResponseEntity.ok(this.resourceService.findAllByComplexQuery(params))
     }
 
     @Operation(summary = "Get all resources by type")
