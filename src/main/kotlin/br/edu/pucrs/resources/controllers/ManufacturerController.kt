@@ -2,6 +2,7 @@ package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.dto.request.ManufacturerUpdateDTO
+import br.edu.pucrs.resources.dto.response.ManufacturerResponseDTO
 import br.edu.pucrs.resources.services.ManufacturerService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -16,8 +17,8 @@ class ManufacturerController(private val manufacturerService: ManufacturerServic
 
     @Operation(summary = "Get all manufacturers")
     @GetMapping
-    fun findAll(): List<Manufacturer> {
-        return manufacturerService.findAll()
+    fun findAll(@RequestParam(defaultValue = "{}") params: Map<String, String>): List<ManufacturerResponseDTO> {
+        return manufacturerService.findAllByComplexQuery(params)
     }
 
     @Operation(summary = "Get manufacturer by id")

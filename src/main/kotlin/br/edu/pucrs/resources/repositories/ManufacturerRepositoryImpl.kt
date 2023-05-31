@@ -1,17 +1,19 @@
 package br.edu.pucrs.resources.repositories
 
+import br.edu.pucrs.resources.domain.Manufacturer
 import br.edu.pucrs.resources.domain.Resource
+import br.edu.pucrs.resources.domain.Type
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.BasicQuery
 import org.springframework.stereotype.Repository
 
 
 @Repository
-class ResourceRepositoryImpl (private val mongoTemplate: MongoTemplate) {
+class ManufacturerRepositoryImpl (private val mongoTemplate: MongoTemplate) {
 
-    fun findAllByComplexQuery(params: Map<String, String>): List<Resource> {
+    fun findAllByComplexQuery(params: Map<String, String>): List<Manufacturer> {
         val query = BasicQuery(buildFilter(params))
-        return mongoTemplate.find(query, Resource::class.java)
+        return mongoTemplate.find(query, Manufacturer::class.java)
     }
 
     private fun buildFilter(params: Map<String, String>) : String {

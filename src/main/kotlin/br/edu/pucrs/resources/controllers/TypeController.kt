@@ -2,6 +2,7 @@ package br.edu.pucrs.resources.controllers
 
 import br.edu.pucrs.resources.domain.Type
 import br.edu.pucrs.resources.dto.request.TypeDTO
+import br.edu.pucrs.resources.dto.response.TypeResponseDTO
 import br.edu.pucrs.resources.services.TypeService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -15,7 +16,7 @@ import java.util.*
 @RequestMapping("/resources/types")
 class TypeController(private val typeService: TypeService) {
 
-    @Operation(summary = "Crate a new resource")
+    @Operation(summary = "Create a new type")
     @PostMapping
     fun save(@RequestBody type: Type): ResponseEntity<Type> {
         val createdType = typeService.save(type)
@@ -24,8 +25,8 @@ class TypeController(private val typeService: TypeService) {
 
     @Operation(summary = "Get all types")
     @GetMapping
-    fun findAll(): ResponseEntity<List<Type>> {
-        val types = typeService.findAll()
+    fun findAllByComplexQuery(@RequestParam(defaultValue = "{}") params: Map<String, String>): ResponseEntity<List<TypeResponseDTO>> {
+        val types = typeService.findAllByComplexQuery(params)
         return ResponseEntity.ok(types)
     }
 
@@ -34,18 +35,6 @@ class TypeController(private val typeService: TypeService) {
     fun findById(@PathVariable id: UUID): ResponseEntity<Type> {
         val type = typeService.findById(id)
         return ResponseEntity.ok(type)
-    }
-
-    @Operation(summary = "Get type by name")
-    @GetMapping("/findByName/{name}")
-    fun findByName(@PathVariable name: String): List<Type> {
-        return typeService.findByName(name)
-    }
-
-    @Operation(summary = "Get type by part of name")
-    @GetMapping("/findByNameLike/{name}")
-    fun findByNameLike(@PathVariable name: String): List<Type> {
-        return typeService.findByNameLike(name)
     }
 
     @Operation(summary = "Update type")

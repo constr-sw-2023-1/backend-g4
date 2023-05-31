@@ -58,34 +58,4 @@ class ResourceController(private val resourceService: ResourceService) {
         return resourceService.deleteById(id)
     }
 
-    @Operation(summary = "Get all resources by description")
-    @GetMapping("/description/{description}")
-    fun findByDescriptionLike(@PathVariable description: String): List<Resource> {
-        return resourceService.findByDescriptionLike(description)
-    }
-
-    @Operation(summary = "Get all resources by type")
-    @GetMapping("/type/{type}")
-    fun findAllByType(
-            @PathVariable type: String,
-    ): ResponseEntity<List<ResourceResponseDTO>> {
-        return ResponseEntity.ok(this.resourceService.findAllByType(type))
-    }
-
-    @Operation(summary = "Get all resources by manufacturer")
-    @GetMapping("/manufacturer/{manufacturer}")
-    fun findAllByManufacturer(
-            @PathVariable manufacturer: String
-    ): ResponseEntity<List<ResourceResponseDTO>> {
-        return ResponseEntity.ok(this.resourceService.findAllByManufacturer(manufacturer))
-    }
-
-    @Operation(summary = "Get all resources by configuration")
-    @GetMapping("/configuration/{configuration}")
-    fun findAllByConfiguration(
-        @PathVariable configuration: String
-    ): ResponseEntity<List<ResourceResponseDTO>> {
-        return ResponseEntity.ok(this.resourceService.findAllByConfiguration(configuration))
-    }
-
 }

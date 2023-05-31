@@ -2,34 +2,33 @@ package br.edu.pucrs.resources.services
 
 import br.edu.pucrs.resources.domain.Type
 import br.edu.pucrs.resources.dto.request.TypeDTO
+import br.edu.pucrs.resources.dto.response.ResourceResponseDTO
+import br.edu.pucrs.resources.dto.response.TypeResponseDTO
 import br.edu.pucrs.resources.exceptions.NotFoundException
 import br.edu.pucrs.resources.exceptions.RequestValidationException
+import br.edu.pucrs.resources.mapper.ResourceMapper
+import br.edu.pucrs.resources.mapper.TypeMapper
 import br.edu.pucrs.resources.repositories.TypeRepository
+import br.edu.pucrs.resources.repositories.TypeRepositoryImpl
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class TypeService(private val typeRepository: TypeRepository) {
+class TypeService(private val typeRepository: TypeRepository, private val typeRepositoryImpl: TypeRepositoryImpl) {
 
     fun save(type: Type): Type {
         return typeRepository.save(type)
     }
 
-    fun findAll(): List<Type> {
-        return typeRepository.findAll().filter { t -> t.active }
+    fun findAllByComplexQuery(params: Map<String, String>): List<TypeResponseDTO> {
+        return typeRepositoryImpl.findAllByComplexQuery(params).filter { it.active }.map {
+            TypeMapper.toResponse(it)
+        }
     }
 
     fun findById(id: UUID): Type {
         return typeRepository.findById(id).filter { t -> t.active }
             .orElseThrow { NotFoundException(message = "Type not found with ID: $id") }
-    }
-
-    fun findByName(name: String): List<Type> {
-        return typeRepository.findByName(name)
-    }
-
-    fun findByNameLike(name: String): List<Type> {
-        return typeRepository.findByNameLike(name)
     }
 
     fun update(id: UUID, newType: TypeDTO): Type {
