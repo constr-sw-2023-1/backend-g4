@@ -13,8 +13,7 @@ import kotlin.collections.ArrayList
 
 @Service
 class ConfigurationService(private val resourceRepository: ResourceRepository,
-                           private val resourceService: ResourceService,
-                           private val resourceRepositoryImpl: ResourceRepositoryImpl) {
+                           private val resourceService: ResourceService) {
 
     fun save(id: UUID, configuration: List<ConfigurationRequestDTO>): List<ConfigurationResponseDTO> {
 
@@ -30,7 +29,7 @@ class ConfigurationService(private val resourceRepository: ResourceRepository,
     }
 
     fun findById(id: UUID): List<Configuration> {
-        val response = resourceRepository.findById(id).orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
+        val response = resourceRepository.findById(id).filter { c -> c.active }.orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
         return response.configurations;
     }
 
@@ -53,8 +52,7 @@ class ConfigurationService(private val resourceRepository: ResourceRepository,
 
     fun deleteById(id: UUID) {
         val resource = resourceService.findById(id)
-        resource.configurations = emptyList();
-
+        resource.configurations.forEach{ e -> e.active = false}
         resourceRepository.save(resource)
     }
 

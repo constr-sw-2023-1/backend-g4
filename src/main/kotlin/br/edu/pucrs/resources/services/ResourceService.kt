@@ -13,6 +13,7 @@ import br.edu.pucrs.resources.repositories.ResourceRepository
 import br.edu.pucrs.resources.repositories.ResourceRepositoryImpl
 import org.springframework.stereotype.Service
 import java.util.*
+import java.util.function.Predicate
 
 @Service
 class ResourceService(
@@ -34,7 +35,7 @@ class ResourceService(
     }
 
     fun findById(id: UUID): Resource {
-        return resourceRepository.findById(id)
+        return resourceRepository.findById(id).filter { r -> r.active }
             .orElseThrow { NotFoundException(message = "Resource not found with ID: $id") }
     }
 
@@ -49,8 +50,9 @@ class ResourceService(
     }
 
     fun deleteById(id: UUID) {
-        findById(id)
-        return resourceRepository.deleteById(id)
+        val resource = findById(id)
+        resource.active = false
+        resourceRepository.save(resource)
     }
 
     fun findByDescriptionLike(description: String): List<Resource> {
@@ -69,26 +71,26 @@ class ResourceService(
     }
 
     fun findAllByComplexQuery(params: Map<String, String>): List<ResourceResponseDTO> {
-        return resourceRepositoryImpl.findAllByComplexQuery(params).map {
+        return resourceRepositoryImpl.findAllByComplexQuery(params).filter { it.active }.map {
             ResourceMapper.toResponse(it)
         }
     }
 
     fun findAllByType(type: String): List<ResourceResponseDTO> {
-        return resourceRepository.findAllByType_Name(type).map {
+        return resourceRepository.findAllByType_Name(type).filter { it.active }.map {
             ResourceMapper.toResponse(it)
         }
     }
 
     fun findAllByManufacturer(manufacturer: String): List<ResourceResponseDTO>? {
-        return resourceRepository.findAllByManufacturer_Name(manufacturer).map {
+        return resourceRepository.findAllByManufacturer_Name(manufacturer).filter { it.active }.map {
             ResourceMapper.toResponse(it)
         }
 
     }
 
     fun findAllByConfiguration(configuration: String): List<ResourceResponseDTO>? {
-        return resourceRepository.findAllByConfigurations_Component(configuration).map {
+        return resourceRepository.findAllByConfigurations_Component(configuration).filter { it.active }.map {
             ResourceMapper.toResponse(it)
         }
 

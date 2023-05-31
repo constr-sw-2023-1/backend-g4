@@ -16,11 +16,11 @@ class TypeService(private val typeRepository: TypeRepository) {
     }
 
     fun findAll(): List<Type> {
-        return typeRepository.findAll()
+        return typeRepository.findAll().filter { t -> t.active }
     }
 
     fun findById(id: UUID): Type {
-        return typeRepository.findById(id)
+        return typeRepository.findById(id).filter { t -> t.active }
             .orElseThrow { NotFoundException(message = "Type not found with ID: $id") }
     }
 
@@ -51,8 +51,9 @@ class TypeService(private val typeRepository: TypeRepository) {
     }
 
     fun deleteById(id: UUID) {
-        findById(id)
-        return typeRepository.deleteById(id)
+        val type = findById(id)
+        type.active = false
+        typeRepository.save(type)
     }
 
 }

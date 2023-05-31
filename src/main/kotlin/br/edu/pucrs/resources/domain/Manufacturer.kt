@@ -9,4 +9,5 @@ class Manufacturer {
         @Id
         var id: UUID? = UUID.randomUUID()
         var name: String? = null
+        var active: Boolean = true
 }

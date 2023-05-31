@@ -16,11 +16,11 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
     }
 
     fun findAll(): List<Manufacturer> {
-        return manufacturerRepository.findAll()
+        return manufacturerRepository.findAll().filter { m -> m.active }
     }
 
     fun findById(id: UUID): Manufacturer {
-        return manufacturerRepository.findById(id).orElseThrow {
+        return manufacturerRepository.findById(id).filter { m -> m.active }.orElseThrow {
             NotFoundException(message = "Manufacturer not found with ID: $id")
         }
     }
@@ -38,8 +38,9 @@ class ManufacturerService(private val manufacturerRepository: ManufacturerReposi
     }
 
     fun deleteById(id: UUID) {
-        findById(id)
-        return manufacturerRepository.deleteById(id)
+        val manufacturer = findById(id)
+        manufacturer.active = false
+        manufacturerRepository.save(manufacturer)
     }
 
     fun updatePatch(id: UUID, manufacturer: ManufacturerUpdateDTO): Manufacturer {

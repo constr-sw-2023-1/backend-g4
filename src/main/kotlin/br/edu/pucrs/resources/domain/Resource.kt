@@ -13,4 +13,5 @@ class Resource{
         var type: Type? = null
         var manufacturer: Manufacturer? = null
         var configurations: List<Configuration> = arrayListOf()
+        var active: Boolean = true
 }

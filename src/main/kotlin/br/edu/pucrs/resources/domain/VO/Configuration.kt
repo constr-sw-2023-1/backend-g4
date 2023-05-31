@@ -7,4 +7,5 @@ import java.util.*
 class Configuration {
         var component: String? = null
         var description: String? = null
+        var active: Boolean = true
 }
