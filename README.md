@@ -12,8 +12,8 @@ The following URLs are hosted on OCI, the following links can redirect you to it
 - [OAuth API](http://168.75.107.143:8080/).
 - [Keycloak Admin](http://168.75.107.143:8090/).
 
-**Admin credentials**
-User: admin
+**Admin credentials** <br>
+User: admin <br>
 Password: a12345678
 
 ### :whale2: Docker Image
