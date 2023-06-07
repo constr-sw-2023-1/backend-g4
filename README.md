@@ -12,9 +12,10 @@ The following URLs are hosted on OCI, the following links can redirect you to it
 - [OAuth API](http://168.75.107.143:8080/).
 - [Keycloak Admin](http://168.75.107.143:8090/).
 
-**Admin credentials** <br>
-User: admin <br>
-Password: a12345678
+### :lock: Keycloak Access 
+Admin credentials required to access admin panel:
+- User: admin
+- Password: a12345678
 
 ### :whale2: Docker Image
 - The docker [Resources image](https://github.com/constr-sw-2023-1/backend-g4/pkgs/container/backend-g4) can be pulled from the GHCR.
@@ -29,19 +30,6 @@ Password: a12345678
 Use the following command to build the project:
 ```
 ./gradlew build
-```
-
-## :runner: Running the Project
-Use the following command to run the project:
-```
-java -jar build/libs/resources-0.1.0.jar
-```
-
-## :running_woman: Running the Project with Docker Compose
-Use the following commands to run the project with Docker:
-```
-make build
-make up
 ```
 
 ## 🥬MongoDB Diagram
